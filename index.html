@@ -1,0 +1,2730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legacy The Initiative — We've Got You Covered</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================
+       TOKENS — identical to v1
+    ===================================================== */
+    :root {
+      --navy:       #0e1b38;
+      --navy-2:     #162246;
+      --navy-light: #1e2e52;
+      --red:        #C8102E;
+      --red-dim:    #a50d25;
+      --gold:       #b8973d;
+      --cream:      #faf9f6;
+      --cream-2:    #f3f1ec;
+      --white:      #ffffff;
+      --text:       #0e1b38;
+      --muted:      #7a8096;
+      --border:     #e5e3dc;
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Outfit', 'Helvetica Neue', Arial, sans-serif;
+
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --r: 10px;
+      --shadow: 0 4px 32px rgba(14,27,56,0.10);
+      --shadow-lg: 0 12px 48px rgba(14,27,56,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input, textarea { font-family: inherit; }
+    ::selection { background: var(--red); color: white; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    * { scrollbar-width: none; -ms-overflow-style: none; }
+    *::-webkit-scrollbar { display: none; }
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+    [data-sr] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+    [data-sr].sr-in { opacity: 1; transform: translateY(0); }
+    [data-sr][data-d="1"] { transition-delay: 0.1s; }
+    [data-sr][data-d="2"] { transition-delay: 0.2s; }
+    [data-sr][data-d="3"] { transition-delay: 0.3s; }
+    [data-sr][data-d="4"] { transition-delay: 0.4s; }
+    [data-sr][data-d="5"] { transition-delay: 0.5s; }
+    [data-sr][data-d="6"] { transition-delay: 0.6s; }
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.85rem 1.75rem;
+      border-radius: 100px;
+      transition: all 0.25s var(--ease);
+      cursor: pointer;
+      white-space: nowrap;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-red { background: var(--red); color: white; }
+    .btn-red:hover { background: var(--red-dim); box-shadow: 0 8px 24px rgba(200,16,46,0.3); }
+    .btn-navy { background: var(--navy); color: white; }
+    .btn-navy:hover { background: var(--navy-2); box-shadow: 0 8px 24px rgba(14,27,56,0.3); }
+    .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--navy); }
+    .btn-outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.35); }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: white; }
+    .btn-gold { background: var(--gold); color: var(--navy); font-weight: 700; }
+    .btn-gold:hover { background: #a8873d; box-shadow: 0 8px 24px rgba(184,151,61,0.3); }
+    .btn-lg { font-size: 1rem; padding: 1rem 2.25rem; }
+    .btn-arrow { transition: transform 0.25s var(--ease); }
+    .btn:hover .btn-arrow { transform: translateX(4px); }
+
+    /* =====================================================
+       NAV
+    ===================================================== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 68px;
+      z-index: 500;
+      transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+    .nav.scrolled {
+      background: rgba(250,249,246,0.96);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__brand { display: flex; align-items: center; gap: 0.6rem; }
+    .nav__logo { width: 38px; height: 38px; object-fit: contain; mix-blend-mode: multiply; }
+    .nav__name {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .nav__links { display: flex; align-items: center; gap: 2rem; }
+    .nav__link {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      transition: color 0.2s ease;
+      text-transform: uppercase;
+    }
+    .nav__link:hover { color: var(--navy); }
+    .nav__actions { display: flex; gap: 0.75rem; align-items: center; }
+    .nav__ham { display: none; flex-direction: column; gap: 5px; padding: 6px; }
+    .nav__ham span { display: block; width: 22px; height: 1.5px; background: var(--navy); transition: all 0.3s ease; }
+    .nav__ham.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav__ham.open span:nth-child(2) { opacity: 0; }
+    .nav__ham.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav__mobile {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem 2rem;
+      flex-direction: column;
+      gap: 0;
+      box-shadow: var(--shadow);
+      z-index: 499;
+    }
+    .nav__mobile.open { display: flex; }
+    .nav__mobile a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .nav__mobile .btn { margin-top: 1.25rem; align-self: flex-start; }
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 68px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__left {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem 5rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+    /* Subtle diagonal accent behind hero text */
+    .hero__left::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -30px;
+      width: 220px; height: 220px;
+      border: 1.5px solid rgba(200,16,46,0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1.5px;
+      background: var(--red);
+    }
+    .hero__headline {
+      font-family: var(--serif);
+      font-size: clamp(3.4rem, 5.5vw, 6rem);
+      font-weight: 600;
+      line-height: 1.0;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero__headline em {
+      font-style: italic;
+      color: var(--red);
+    }
+    .hero__sub {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 420px;
+    }
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.875rem;
+      margin-bottom: 3rem;
+    }
+    .hero__trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero__trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .hero__trust-num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .hero__trust-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .hero__right {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero__right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(200,16,46,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 90%, rgba(184,151,61,0.08) 0%, transparent 50%);
+      z-index: 1;
+    }
+    .hero__photo {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 30% top;
+      z-index: 2;
+      opacity: 0;
+      animation: photoReveal 1s var(--ease) 0.4s forwards;
+    }
+    @keyframes photoReveal {
+      from { opacity: 0; transform: scale(1.04); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .hero__photo-badge {
+      position: absolute;
+      bottom: 2.5rem; left: 2rem;
+      z-index: 3;
+      background: rgba(14,27,56,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r);
+      padding: 1rem 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease) 1s forwards;
+    }
+    .hero__photo-badge-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: white;
+    }
+    .hero__photo-badge-sub {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.2rem;
+    }
+    .hero__red-line {
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--red) 30%, var(--red) 70%, transparent);
+      z-index: 4;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       TRUST MARQUEE
+    ===================================================== */
+    .trust-strip {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-block: 0.9rem;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-list {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      animation: mq 30s linear infinite;
+      white-space: nowrap;
+    }
+    .mq-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding-inline: 2rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .mq-item b { color: rgba(255,255,255,0.85); }
+    .mq-dot { width: 4px; height: 4px; background: var(--red); border-radius: 50%; flex-shrink: 0; }
+
+    /* =====================================================
+       SECTION SHARED
+    ===================================================== */
+    .section { padding-block: 6rem; }
+    .section--navy { background: var(--navy); }
+    .section--cream { background: var(--cream); }
+    .section--cream-2 { background: var(--cream-2); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .sect-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .sect-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--red);
+    }
+    .sect-eyebrow--light { color: rgba(255,255,255,0.45); }
+    .sect-eyebrow--light::before { background: rgba(255,255,255,0.25); }
+
+    /* =====================================================
+       QUIZ CTA SECTION (moved to position 3)
+    ===================================================== */
+    .quiz-cta { background: var(--navy); position: relative; overflow: hidden; }
+    .quiz-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 8% 50%, rgba(200,16,46,0.14) 0%, transparent 50%),
+        radial-gradient(ellipse at 92% 50%, rgba(184,151,61,0.09) 0%, transparent 50%);
+    }
+    .quiz-cta__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .quiz-cta__headline {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.0;
+      color: white;
+      margin-bottom: 1.25rem;
+    }
+    .quiz-cta__headline em { font-style: italic; color: var(--gold); }
+    .quiz-cta__body {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 2rem;
+    }
+    .quiz-cta__meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .quiz-cta__guide {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .quiz-cta__guide-photo {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 2px solid rgba(184,151,61,0.45);
+      flex-shrink: 0;
+    }
+    .quiz-cta__guide-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: white;
+      line-height: 1.2;
+    }
+    .quiz-cta__guide-role {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.15rem;
+    }
+    .quiz-cta__meta-item {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .quiz-cta__meta-item::before { content: '✓'; color: var(--gold); }
+
+    /* Report preview card (right side of quiz CTA) */
+    .quiz-report-preview {
+      background: var(--cream);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+      transform: rotate(1.5deg);
+      transition: transform 0.4s var(--ease);
+      position: relative;
+    }
+    .quiz-report-preview:hover { transform: rotate(0deg) scale(1.01); }
+    .qrp__header {
+      background: var(--navy-2);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .qrp__header img { width: 28px; height: 28px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
+    .qrp__header-text { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .qrp__profile-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .qrp__profile-banner::before {
+      content: '🏛️';
+      position: absolute;
+      right: 1rem; top: 50%;
+      transform: translateY(-50%);
+      font-size: 4rem;
+      opacity: 0.15;
+    }
+    .qrp__profile-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+    .qrp__profile-name { font-family: var(--serif); font-size: 1.6rem; font-style: italic; color: white; line-height: 1.15; }
+    .qrp__body { padding: 1.25rem 1.5rem; }
+    .qrp__bars { display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1.25rem; }
+    .qrp__bar-row { display: flex; flex-direction: column; gap: 0.3rem; }
+    .qrp__bar-label { font-size: 0.72rem; font-weight: 600; color: var(--text); display: flex; justify-content: space-between; }
+    .qrp__bar-label span { color: var(--muted); font-weight: 400; }
+    .qrp__bar-track { height: 6px; background: var(--cream-2); border-radius: 100px; overflow: hidden; }
+    .qrp__bar-fill { height: 100%; border-radius: 100px; background: var(--border); }
+    .qrp__bar-fill--winner { background: var(--red); }
+    .qrp__cta-row {
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .qrp__cta-text { font-size: 0.8rem; font-weight: 600; color: white; }
+    .qrp__cta-btn {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .qrp__lock {
+      position: absolute;
+      inset: 0;
+      background: rgba(14,27,56,0.6);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: backdrop-filter 0.3s ease;
+      border-radius: 16px;
+    }
+    .qrp__lock:hover { backdrop-filter: blur(2px); }
+    .qrp__lock-inner { text-align: center; color: white; }
+    .qrp__lock-inner .lock-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    .qrp__lock-inner p { font-size: 0.85rem; font-weight: 600; opacity: 0.85; }
+
+    /* =====================================================
+       HOW IT WORKS (moved directly after quiz CTA)
+    ===================================================== */
+    .how__headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 600;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 3.5rem;
+      line-height: 1.15;
+    }
+    .how__headline em { font-style: italic; color: var(--red); }
+    .how__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .how__grid::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: calc(16.66% + 1rem);
+      right: calc(16.66% + 1rem);
+      height: 1.5px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .how-step {
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .how-step__num {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: var(--cream-2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0 auto 1.5rem;
+      transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+    .how-step:hover .how-step__num { background: var(--red); border-color: var(--red); color: white; }
+    .how-step__title { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem; line-height: 1.2; }
+    .how-step__desc { font-size: 0.875rem; line-height: 1.8; color: var(--muted); }
+
+    /* =====================================================
+       OUR STORY (merged About + Founders — single section)
+    ===================================================== */
+    .story { background: var(--cream); }
+    .story__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .story__photo-wrap { position: relative; }
+    .story__photo {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center center;
+      border-radius: 4px;
+      background: var(--navy);
+      display: block;
+    }
+    .story__photo-frame {
+      position: absolute;
+      top: -12px; left: -12px;
+      right: 12px; bottom: -12px;
+      border: 1.5px solid var(--red);
+      border-radius: 4px;
+      z-index: -1;
+    }
+    .story__badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: white;
+      border-radius: var(--r);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      min-width: 160px;
+    }
+    .story__badge-num {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1;
+    }
+    .story__badge-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+    .story__headline {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 4vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--navy);
+      margin-bottom: 1.25rem;
+    }
+    .story__headline em { font-style: italic; color: var(--red); }
+    .story__names {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--navy);
+      margin-bottom: 1.75rem;
+    }
+    .story__body { font-size: 1rem; line-height: 1.9; color: var(--muted); margin-bottom: 1.25rem; }
+    .story__values {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .story__value {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .story__value::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .story__cta-row {
+      display: flex;
+      gap: 0.875rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    /* =====================================================
+       SERVICES
+    ===================================================== */
+    .services__head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+      margin-bottom: 3.5rem;
+    }
+    .services__headline {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--navy);
+    }
+    .services__headline em { font-style: italic; color: var(--red); }
+    .services__intro { font-size: 0.95rem; line-height: 1.8; color: var(--muted); }
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: background 0.3s var(--ease);
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s var(--ease);
+    }
+    .service-card:hover { background: var(--cream); }
+    .service-card:hover::after { transform: scaleX(1); }
+    /* CSS icon shapes replacing emojis */
+    .service-card__icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: var(--cream-2);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .service-card:hover .service-card__icon { background: rgba(200,16,46,0.06); border-color: rgba(200,16,46,0.2); }
+    .service-card__icon svg { width: 22px; height: 22px; color: var(--navy); transition: color 0.3s ease; }
+    .service-card:hover .service-card__icon svg { color: var(--red); }
+    .service-card__num {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    .service-card:hover .service-card__num { color: var(--red); opacity: 0.4; }
+    .service-card__title { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem; line-height: 1.2; }
+    .service-card__desc { font-size: 0.875rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; }
+    .service-card__link {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.3s ease;
+    }
+    .service-card:hover .service-card__link { gap: 0.7rem; }
+
+    /* =====================================================
+       STATS
+    ===================================================== */
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .stat-cell {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--red);
+      transition: width 1.2s var(--ease);
+    }
+    .stat-cell.sr-in::before { width: 100%; }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 5vw, 5.5rem);
+      font-weight: 700;
+      color: white;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .stat-num span { color: var(--red); }
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.5rem;
+    }
+    .stats__context {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+    .stats__context p {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.45);
+    }
+    .stats__context em { color: var(--gold); font-style: normal; }
+
+    /* =====================================================
+       TEAM STRIP
+    ===================================================== */
+    .team-strip { position: relative; overflow: hidden; background: #000; }
+    .team-strip__img {
+      width: 100%;
+      height: 640px;
+      object-fit: cover;
+      object-position: center 42%;
+      display: block;
+      filter: saturate(1.05) contrast(1.08) brightness(0.88);
+    }
+    .team-strip__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(0,0,0,0.72) 0%,
+          rgba(0,0,0,0.35) 28%,
+          transparent 50%,
+          rgba(14,27,56,0.45) 78%,
+          rgba(14,27,56,0.82) 100%
+        );
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 3.75rem;
+      padding-inline: 2rem;
+    }
+    .team-strip__text { text-align: center; }
+    .team-strip__eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .team-strip__headline {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 600;
+      font-style: italic;
+      color: white;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+    }
+    .team-strip__headline em { color: var(--gold); font-style: normal; }
+    .team-strip__sub {
+      font-size: 0;
+      margin-top: 0;
+    }
+
+    /* =====================================================
+       TESTIMONIALS (new section)
+    ===================================================== */
+    .testi__headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 600;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+    .testi__headline em { font-style: italic; color: var(--red); }
+    .testi__sub {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 3.5rem;
+    }
+    .testi__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testi-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .testi-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .testi-card::before {
+      content: '"';
+      font-family: var(--serif);
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--red);
+      opacity: 0.1;
+      position: absolute;
+      top: 0.5rem; left: 1.5rem;
+      line-height: 1;
+    }
+    .testi-card__quote {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .testi-card__footer { display: flex; align-items: center; gap: 0.875rem; }
+    .testi-card__avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .testi-card__name { font-size: 0.875rem; font-weight: 600; color: var(--navy); }
+    .testi-card__detail { font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+    .testi-card__stars { display: flex; gap: 2px; margin-top: 0.2rem; }
+    .testi-card__stars span { color: var(--gold); font-size: 0.75rem; }
+
+    /* =====================================================
+       BOOK A CALL — high-conversion final section
+    ===================================================== */
+    .book-section {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      padding-block: 7rem;
+    }
+    .book-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(200,16,46,0.28) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 110%, rgba(184,151,61,0.14) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 110%, rgba(184,151,61,0.10) 0%, transparent 50%);
+    }
+    .book-section::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: url('a4046e7e-dccf-4545-8011-c708cc7cce50.png') center/contain no-repeat;
+      opacity: 0.04;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .book-section__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Tag pill */
+    .book-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(200,16,46,0.1);
+      border: 1px solid rgba(200,16,46,0.22);
+      color: rgba(255,255,255,0.65);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+    }
+    .book-tag__dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Headline */
+    .book-section__headline {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.0;
+      color: white;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .book-section__headline em { font-style: italic; color: var(--gold); }
+
+    /* Sub copy */
+    .book-section__sub {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.5);
+      max-width: 540px;
+      margin: 0 auto 2.25rem;
+    }
+
+    /* Availability pulse */
+    .book-avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 2rem;
+    }
+    .book-avail__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 0 rgba(74,222,128,0.5);
+      animation: pulse-green 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-green {
+      0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+      70%  { box-shadow: 0 0 0 9px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+    }
+
+    /* Primary book button */
+    .book-cta-wrap { margin-bottom: 1.75rem; }
+    .btn-book {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-family: var(--sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 1.25rem 3.5rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      max-width: 500px;
+      text-decoration: none;
+      box-shadow: 0 6px 40px rgba(184,151,61,0.4);
+      transition: background 0.3s var(--ease), transform 0.2s, box-shadow 0.3s;
+    }
+    .btn-book:hover {
+      background: #cfa94a;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 56px rgba(184,151,61,0.6);
+    }
+    .btn-book .btn-arrow { transition: transform 0.25s var(--ease); }
+    .btn-book:hover .btn-arrow { transform: translateX(5px); }
+    .book-cta-note {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      margin-top: 0.875rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Guarantee chips */
+    .book-section__guarantees {
+      display: flex;
+      justify-content: center;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+    .book-section__guarantee {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .book-section__guarantee::before { content: '✓'; color: var(--gold); }
+
+    /* Divider */
+    .book-divider {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+      margin: 0 auto 3rem;
+    }
+
+    /* What happens on the call */
+    .book-steps { margin-bottom: 3.5rem; }
+    .book-steps__label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 1.75rem;
+    }
+    .book-steps__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border-radius: calc(var(--r) + 2px);
+      overflow: hidden;
+    }
+    .book-step {
+      background: rgba(255,255,255,0.03);
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+    }
+    .book-step__num {
+      font-family: var(--serif);
+      font-size: 2.25rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--gold);
+      opacity: 0.6;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .book-step__title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+    .book-step__text {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.38);
+    }
+
+    /* Founders strip */
+    .book-section__founders {
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .book-section__founders-photo {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center center;
+      border: 2px solid rgba(184,151,61,0.3);
+    }
+    .book-section__founders-info { text-align: left; }
+    .book-section__founders-names {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: white;
+    }
+    .book-section__founders-role {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-top: 0.2rem;
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    .footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem 2rem 2rem;
+    }
+    .footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 2rem;
+    }
+    .footer__brand-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.875rem; }
+    .footer__logo { width: 34px; height: 34px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; }
+    .footer__brand-name { font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: white; }
+    .footer__tagline { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.35); max-width: 260px; margin-bottom: 1.25rem; }
+    .footer__social { display: flex; gap: 0.5rem; }
+    .footer__social-btn {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .footer__social-btn:hover { border-color: var(--red); color: var(--red); }
+    .footer__col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 1.25rem; }
+    .footer__links { display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer__links a { font-size: 0.85rem; color: rgba(255,255,255,0.45); transition: color 0.2s ease; }
+    .footer__links a:hover { color: white; }
+    .footer__bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer__copy { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .footer__legal { display: flex; gap: 1.5rem; }
+    .footer__legal a { font-size: 0.75rem; color: rgba(255,255,255,0.25); transition: color 0.2s ease; }
+    .footer__legal a:hover { color: rgba(255,255,255,0.6); }
+
+    /* =====================================================
+       STICKY QUIZ BAR
+    ===================================================== */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 300;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 0.875rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.4s var(--ease);
+      box-shadow: 0 -8px 32px rgba(14,27,56,0.25);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar__text { display: flex; align-items: center; gap: 0.875rem; }
+    .sticky-bar__icon { font-size: 1.25rem; flex-shrink: 0; }
+    .sticky-bar__headline { font-family: var(--serif); font-size: 1rem; font-style: italic; color: white; }
+    .sticky-bar__sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+    .sticky-bar__close {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .sticky-bar__close:hover { background: rgba(255,255,255,0.15); color: white; }
+
+    /* =====================================================
+       EXIT INTENT MODAL
+    ===================================================== */
+    .exit-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(14,27,56,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .exit-overlay.show { opacity: 1; pointer-events: all; }
+    .exit-modal {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      transform: scale(0.95);
+      transition: transform 0.3s var(--ease);
+      position: relative;
+    }
+    .exit-overlay.show .exit-modal { transform: scale(1); }
+    .exit-modal__close {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--cream-2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: var(--muted);
+      transition: background 0.2s ease;
+    }
+    .exit-modal__close:hover { background: var(--border); }
+    .exit-modal__icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .exit-modal__headline { font-family: var(--serif); font-size: 1.75rem; font-weight: 600; color: var(--navy); line-height: 1.2; margin-bottom: 0.875rem; }
+    .exit-modal__body { font-size: 0.9rem; line-height: 1.75; color: var(--muted); margin-bottom: 2rem; }
+    .exit-modal__note { font-size: 0.72rem; color: var(--muted); margin-top: 0.75rem; }
+
+    /* =====================================================
+       QUIZ OVERLAY
+    ===================================================== */
+    .quiz-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 700;
+      background: var(--cream);
+      transform: translateX(100%);
+      transition: transform 0.5s var(--ease);
+      overflow-y: auto;
+    }
+    .quiz-overlay.open { transform: translateX(0); }
+    .quiz-overlay__nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250,249,246,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+    .quiz-overlay__brand { display: flex; align-items: center; gap: 0.5rem; }
+    .quiz-overlay__brand img { width: 28px; height: 28px; object-fit: contain; }
+    .quiz-overlay__brand span { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
+    .quiz-overlay__close {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 600; color: var(--muted);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+    .quiz-overlay__close:hover { color: var(--navy); }
+
+    .qz { max-width: 600px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    .qz-screen { display: none; }
+    .qz-screen.active { display: block; animation: fadeUp 0.35s var(--ease) forwards; }
+
+    /* Intro screen — upgraded */
+    .qz-intro { text-align: center; padding-top: 2rem; }
+    .qz-intro__logo { width: 64px; height: 64px; object-fit: contain; margin: 0 auto 1.5rem; }
+    .qz-intro__eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.875rem; }
+    .qz-intro__headline { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 600; color: var(--navy); line-height: 1.2; margin-bottom: 1rem; }
+    .qz-intro__headline em { font-style: italic; color: var(--red); }
+    .qz-intro__body { font-size: 0.975rem; line-height: 1.85; color: var(--muted); max-width: 460px; margin: 0 auto 0.5rem; }
+    /* Profile teaser cards in intro */
+    .qz-intro__profiles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.625rem;
+      margin: 1.75rem 0 2rem;
+    }
+    .qz-intro__profile {
+      background: var(--navy);
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .qz-intro__profile-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .qz-intro__profile-name { font-size: 0.62rem; font-weight: 600; color: rgba(255,255,255,0.65); line-height: 1.4; padding: 0.5rem 0.4rem 0.6rem; }
+    .qz-intro__note {
+      font-size: 0.75rem; color: var(--muted);
+      margin-top: 0.875rem;
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.25rem; flex-wrap: wrap;
+    }
+    .qz-intro__note span::before { content: '✓ '; color: var(--red); font-weight: 700; }
+
+    /* Progress */
+    .qz-progress { margin-bottom: 2.5rem; }
+    .qz-progress__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.625rem; }
+    .qz-progress__label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .qz-progress__count { font-size: 0.78rem; font-weight: 700; color: var(--navy); }
+    .qz-progress__bar { height: 4px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .qz-progress__fill { height: 100%; background: var(--red); border-radius: 100px; transition: width 0.4s var(--ease); }
+
+    /* Question */
+    .q-wrap { display: none; }
+    .q-wrap.active { display: block; animation: fadeUp 0.3s var(--ease) forwards; }
+    .q-headline { font-family: var(--serif); font-size: clamp(1.4rem, 2.5vw, 1.85rem); font-weight: 600; color: var(--navy); text-align: center; line-height: 1.35; margin-bottom: 0.5rem; }
+    .q-sub { font-size: 0.875rem; color: var(--muted); text-align: center; margin-bottom: 2rem; }
+
+    /* Binary */
+    .binary-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative; }
+    .b-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    }
+    .b-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(200,16,46,0.1); transform: translateY(-2px); }
+    .b-card.picked { border-color: var(--red); background: #fff8f8; }
+    .b-card__icon { width: 48px; height: 48px; background: var(--cream-2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .b-card__label { font-size: 0.95rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
+    .b-card__hint { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .or-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 34px; height: 34px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.04em; z-index: 2; border: 3px solid var(--cream); }
+
+    /* Multi */
+    .chips-wrap { display: flex; flex-wrap: wrap; gap: 0.625rem; justify-content: center; margin-bottom: 2rem; }
+    .chip { background: white; border: 2px solid var(--border); border-radius: 100px; padding: 0.6rem 1.1rem; font-size: 0.875rem; font-weight: 500; color: var(--navy); cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; }
+    .chip:hover { border-color: var(--red); }
+    .chip.picked { border-color: var(--red); background: var(--red); color: white; }
+    .q-continue-btn { display: flex; justify-content: center; }
+
+    /* Slider */
+    .slider-block { padding: 0.5rem 0 1.5rem; }
+    .slider-val { font-family: var(--serif); font-size: 3.5rem; font-weight: 700; color: var(--navy); text-align: center; line-height: 1; margin-bottom: 1.25rem; }
+    .slider-val sup { font-size: 1rem; color: var(--muted); font-family: var(--sans); font-weight: 400; }
+    input[type=range] { -webkit-appearance: none; width: 100%; height: 5px; background: var(--border); border-radius: 100px; cursor: pointer; outline: none; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--red); box-shadow: 0 2px 8px rgba(200,16,46,0.35); transition: transform 0.2s ease; }
+    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    .slider-labels { display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+    .slider-continue { display: flex; justify-content: center; margin-top: 1.75rem; }
+
+    /* Generating */
+    .gen-screen { text-align: center; padding-top: 2rem; }
+    .gen-screen h2 { font-family: var(--serif); font-size: 1.75rem; color: var(--navy); margin-bottom: 2rem; }
+    .gen-bar { height: 5px; background: var(--border); border-radius: 100px; overflow: hidden; margin-bottom: 2.5rem; }
+    .gen-fill { height: 100%; background: linear-gradient(to right, var(--red), var(--gold)); border-radius: 100px; width: 0%; transition: width 0.1s linear; }
+    .gen-lines { text-align: left; display: flex; flex-direction: column; gap: 1rem; }
+    .gen-line { display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; color: var(--muted); opacity: 0; transition: opacity 0.4s ease; }
+    .gen-line.show { opacity: 1; }
+    .gen-line.done { color: var(--red); font-weight: 600; }
+    .gen-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.3s ease; }
+    .gen-line.done .gen-dot { background: var(--red); }
+
+    /* Results */
+    .res-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); text-align: center; margin-bottom: 0.5rem; }
+    .res-profile { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-style: italic; color: var(--navy); text-align: center; margin-bottom: 1.75rem; line-height: 1.1; }
+    .res-hero {
+      width: 100%;
+      background: var(--navy); border-radius: var(--r);
+      margin-bottom: 1.25rem;
+      position: relative; overflow: hidden;
+    }
+    .res-hero-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .res-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,27,56,0.6) 0%, transparent 50%); }
+    .res-hero-label { position: absolute; bottom: 1rem; left: 1.25rem; z-index: 2; font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: white; }
+    .res-desc { background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; font-size: 0.9rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.25rem; }
+
+    /* Email gate */
+    .email-card { background: var(--navy); border-radius: var(--r); padding: 2rem; margin-bottom: 1.25rem; }
+    .email-card h3 { font-family: var(--serif); font-size: 1.35rem; color: white; margin-bottom: 0.5rem; }
+    .email-card p { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 1.5rem; }
+    .form-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .finput { flex: 1; padding: 0.8rem 1rem; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 8px; font-size: 0.9rem; color: white; background: rgba(255,255,255,0.07); outline: none; transition: border-color 0.2s ease; }
+    .finput:focus { border-color: var(--red); }
+    .finput::placeholder { color: rgba(255,255,255,0.3); }
+    .finput.err { border-color: #e05252; }
+    .fsub { width: 100%; padding: 0.875rem; background: var(--red); color: white; font-size: 0.9rem; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s ease; }
+    .fsub:hover { background: var(--red-dim); }
+    .form-note { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 0.625rem; }
+
+    /* Match bars */
+    .match-card { background: white; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; margin-bottom: 1.25rem; display: none; }
+    .match-card h3 { font-family: var(--serif); font-size: 1rem; color: var(--navy); margin-bottom: 1.25rem; }
+    .mrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.875rem; }
+    .mrow:last-child { margin-bottom: 0; }
+    .mrow__name { font-size: 0.8rem; font-weight: 600; color: var(--navy); width: 130px; flex-shrink: 0; }
+    .mrow__bar { flex: 1; height: 7px; background: var(--cream-2); border-radius: 100px; overflow: hidden; }
+    .mrow__fill { height: 100%; border-radius: 100px; background: var(--border); transition: width 1s ease 0.3s; }
+    .mrow.winner .mrow__fill { background: var(--red); }
+    .mrow.winner .mrow__name { color: var(--red); }
+    .mrow__pct { font-size: 0.78rem; font-weight: 700; color: var(--muted); width: 36px; text-align: right; }
+    .mrow.winner .mrow__pct { color: var(--red); }
+
+    /* Book card in quiz */
+    .book-card { background: var(--navy); border-radius: var(--r); padding: 2.5rem 2rem; text-align: center; display: none; box-shadow: var(--shadow-lg); }
+    .book-card__logo { width: 48px; height: 48px; object-fit: contain; margin: 0 auto 1rem; filter: brightness(0) invert(1); }
+    .book-card__eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.625rem; }
+    .book-card h3 { font-family: var(--serif); font-size: 1.5rem; color: white; line-height: 1.25; margin-bottom: 0.875rem; }
+    .book-card p { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 1.75rem; }
+    .book-card__note { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-top: 0.875rem; }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+    @media (max-width: 991px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero__right { height: 70vh; min-height: 420px; max-height: 600px; }
+      .hero__left { padding: 3.5rem 2rem; }
+      .story__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .story__photo-wrap { max-width: 400px; }
+      .services__head { grid-template-columns: 1fr; }
+      .services__grid { grid-template-columns: 1fr 1fr; }
+      .stats__grid { grid-template-columns: 1fr 1fr; border: none; gap: 1px; background: rgba(255,255,255,0.08); }
+      .stat-cell { border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .quiz-cta__inner { grid-template-columns: 1fr; gap: 3rem; }
+      .how__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .how__grid::before { display: none; }
+      .testi__grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .footer__inner { grid-template-columns: 1fr 1fr; }
+      .qz-intro__profiles { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .section { padding-block: 4rem; }
+      .nav__links, .nav__actions { display: none; }
+      .nav__ham { display: flex; }
+      .hero__right { height: 80vw; min-height: 320px; max-height: 480px; }
+      .hero__photo { object-position: center top; }
+      .hero__left { padding: 2.5rem 1.5rem 3rem; }
+      .services__grid { grid-template-columns: 1fr; }
+      .stats__grid { grid-template-columns: 1fr 1fr; }
+      .binary-wrap { grid-template-columns: 1fr; }
+      .or-badge { display: none; }
+      .form-row { flex-direction: column; }
+      .footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+      .sticky-bar { padding: 0.75rem 1.25rem; }
+      .sticky-bar__sub { display: none; }
+      .book-section__founders { flex-direction: column; text-align: center; }
+      .book-section__founders-info { text-align: center; }
+      .book-steps__grid { grid-template-columns: 1fr; }
+      .btn-book { font-size: 1rem; padding: 1.1rem 2rem; }
+      .quiz-cta__guide { gap: 0.625rem; }
+      .team-strip__img { height: 520px; }
+      .team-strip__headline { font-size: clamp(2.5rem, 10vw, 4rem); line-height: 1.0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================================================
+     NAV
+======================================================= -->
+<nav class="nav" id="mainNav">
+  <div class="nav__inner">
+    <div class="nav__brand">
+      <img src="Untitled%20design%20(9).png" alt="Legacy" class="nav__logo" />
+      <span class="nav__name">Legacy</span>
+    </div>
+    <ul class="nav__links">
+      <li><a href="#story" class="nav__link">About</a></li>
+      <li><a href="#services" class="nav__link">Services</a></li>
+      <li><a href="#quiz-cta" class="nav__link">Free Quiz</a></li>
+      <li><a href="#book" class="nav__link">Contact</a></li>
+    </ul>
+    <div class="nav__actions">
+      <button class="btn btn-red" onclick="openQuiz()">Take the Free Quiz</button>
+      <a href="#book" class="btn btn-outline">Book a Call</a>
+    </div>
+    <button class="nav__ham" id="navHam" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav__mobile" id="navMobile">
+    <a href="#story">About</a>
+    <a href="#services">Services</a>
+    <a href="#quiz-cta">Free Quiz</a>
+    <a href="#book">Contact</a>
+    <button class="btn btn-red" onclick="openQuiz();closeMobileNav();">Take the Free Quiz</button>
+  </div>
+</nav>
+
+<!-- ======================================================
+     HERO — emotional, personal, family-first headline
+======================================================= -->
+<section class="hero" id="home">
+  <div class="hero__left">
+    <p class="hero__eyebrow">Legacy The Initiative</p>
+    <h1 class="hero__headline">
+      Built by a<br/>
+      Family.<br/>
+      <em>For Yours.</em>
+    </h1>
+    <p class="hero__sub">
+      Earnie and Sharon Sears built Legacy on one belief: every family deserves real protection and a plan that outlasts them. Life insurance, financial planning, and legacy building, designed around the people you love most.
+    </p>
+    <div class="hero__actions">
+      <button class="btn btn-red btn-lg" onclick="openQuiz()">
+        Discover My Profile <span class="btn-arrow">→</span>
+      </button>
+      <a href="#book" class="btn btn-outline btn-lg">Book a Free Call</a>
+    </div>
+    <div class="hero__trust">
+      <div class="hero__trust-item">
+        <span class="hero__trust-num">1K+</span>
+        <span class="hero__trust-label">Families Protected</span>
+      </div>
+      <div class="hero__trust-item">
+        <span class="hero__trust-num">10+</span>
+        <span class="hero__trust-label">Years Experience</span>
+      </div>
+      <div class="hero__trust-item">
+        <span class="hero__trust-num">98%</span>
+        <span class="hero__trust-label">Client Satisfaction</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero__right">
+    <div class="hero__red-line"></div>
+    <img src="Screenshot%202026-04-04%20at%2002.47.42.png" alt="Earnie Sears, CEO" class="hero__photo" />
+    <div class="hero__photo-badge">
+      <div class="hero__photo-badge-title">Earnie Sears</div>
+      <div class="hero__photo-badge-sub">CEO &amp; Co-Founder</div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust Marquee -->
+<div class="trust-strip">
+  <div class="marquee-track">
+    <ul class="marquee-list">
+      <li class="mq-item"><b>Life Insurance</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Financial Planning<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Legacy Building</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Wealth Protection<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Final Expense</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Indexed Universal Life<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Annuities</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Family First<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Life Insurance</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Financial Planning<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Legacy Building</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Wealth Protection<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Final Expense</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Indexed Universal Life<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Annuities</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Family First<span class="mq-dot"></span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================================================
+     QUIZ CTA — moved to section 3, with report preview
+======================================================= -->
+<section class="section section--navy quiz-cta" id="quiz-cta">
+  <div class="wrap">
+    <div class="quiz-cta__inner">
+      <div class="quiz-cta__left">
+        <p class="sect-eyebrow sect-eyebrow--light" data-sr>Free Financial Assessment</p>
+        <h2 class="quiz-cta__headline" data-sr data-d="1">
+          What Is Your<br/><em>Financial<br/>Profile?</em>
+        </h2>
+        <p class="quiz-cta__body" data-sr data-d="2">
+          Answer 6 quick questions and receive a personalised protection report. Find out exactly where you stand, what your family needs, and your clearest next step forward.
+        </p>
+        <button class="btn btn-gold btn-lg" onclick="openQuiz()" data-sr data-d="3">
+          Start Free Assessment <span class="btn-arrow">→</span>
+        </button>
+        <div class="quiz-cta__meta" data-sr data-d="4">
+          <span class="quiz-cta__meta-item">Takes 2 minutes</span>
+          <span class="quiz-cta__meta-item">No financial data required</span>
+          <span class="quiz-cta__meta-item">Instant results</span>
+        </div>
+        <div class="quiz-cta__guide" data-sr data-d="5">
+          <img src="Screenshot%202026-04-04%20at%2003.09.52.png" alt="Earnie Sears" class="quiz-cta__guide-photo" />
+          <div>
+            <div class="quiz-cta__guide-name">Earnie Sears</div>
+            <div class="quiz-cta__guide-role">CEO, Legacy The Initiative</div>
+          </div>
+        </div>
+      </div>
+      <!-- Report preview card — creates intrigue -->
+      <div data-sr data-d="2" style="position:relative;">
+        <div class="quiz-report-preview">
+          <div class="qrp__header">
+            <img src="Untitled%20design%20(9).png" alt="Legacy" />
+            <span class="qrp__header-text">Legacy Financial Report</span>
+          </div>
+          <div class="qrp__profile-banner">
+            <div class="qrp__profile-eyebrow">Your Legacy Profile</div>
+            <div class="qrp__profile-name">The Legacy Builder</div>
+          </div>
+          <div class="qrp__body">
+            <div class="qrp__bars">
+              <div class="qrp__bar-row">
+                <div class="qrp__bar-label">The Legacy Builder <span>94%</span></div>
+                <div class="qrp__bar-track"><div class="qrp__bar-fill qrp__bar-fill--winner" style="width:94%"></div></div>
+              </div>
+              <div class="qrp__bar-row">
+                <div class="qrp__bar-label">The Protector <span>71%</span></div>
+                <div class="qrp__bar-track"><div class="qrp__bar-fill" style="width:71%"></div></div>
+              </div>
+              <div class="qrp__bar-row">
+                <div class="qrp__bar-label">The Freedom Planner <span>48%</span></div>
+                <div class="qrp__bar-track"><div class="qrp__bar-fill" style="width:48%"></div></div>
+              </div>
+              <div class="qrp__bar-row">
+                <div class="qrp__bar-label">The Wealth Creator <span>35%</span></div>
+                <div class="qrp__bar-track"><div class="qrp__bar-fill" style="width:35%"></div></div>
+              </div>
+            </div>
+            <div class="qrp__cta-row">
+              <span class="qrp__cta-text">Book your free consultation</span>
+              <span class="qrp__cta-btn">Schedule →</span>
+            </div>
+          </div>
+        </div>
+        <!-- Lock overlay — prompts curiosity -->
+        <div class="qrp__lock" onclick="openQuiz()">
+          <div class="qrp__lock-inner">
+            <span class="lock-icon">🔓</span>
+            <p>Take the quiz to unlock<br/>your real report</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     HOW IT WORKS — directly after quiz CTA (reduces friction)
+======================================================= -->
+<section class="section section--cream" id="how">
+  <div class="wrap">
+    <h2 class="how__headline" data-sr>
+      How It <em>Works</em>
+    </h2>
+    <div class="how__grid">
+      <div class="how-step" data-sr>
+        <div class="how-step__num">01</div>
+        <h3 class="how-step__title">Take the Free Quiz</h3>
+        <p class="how-step__desc">Answer 6 simple questions about your goals, priorities, and concerns. No financial data required. Takes under 2 minutes.</p>
+      </div>
+      <div class="how-step" data-sr data-d="2">
+        <div class="how-step__num">02</div>
+        <h3 class="how-step__title">Get Your Personal Report</h3>
+        <p class="how-step__desc">Receive your customised Legacy financial profile, with a full breakdown of what protection and planning fits your family best.</p>
+      </div>
+      <div class="how-step" data-sr data-d="4">
+        <div class="how-step__num">03</div>
+        <h3 class="how-step__title">Book Your Free Call</h3>
+        <p class="how-step__desc">Schedule a free 30-minute consultation with Earnie or Sharon. No pressure. No jargon. Just honest advice for your family's future.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem;" data-sr data-d="3">
+      <button class="btn btn-red btn-lg" onclick="openQuiz()">Begin My Assessment <span class="btn-arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     OUR STORY — single merged section (About + Founders)
+======================================================= -->
+<section class="section story" id="story">
+  <div class="wrap">
+    <div class="story__grid">
+      <div class="story__photo-wrap" data-sr>
+        <img src="Screenshot%202026-04-04%20at%2000.57.54.png" alt="Earnie and Sharon Sears" class="story__photo" />
+        <div class="story__photo-frame"></div>
+        <div class="story__badge">
+          <div class="story__badge-num">1K+</div>
+          <div class="story__badge-label">Families Protected</div>
+        </div>
+      </div>
+      <div>
+        <p class="sect-eyebrow" data-sr>Our Story</p>
+        <h2 class="story__headline" data-sr data-d="1">
+          Two Parents.<br/>
+          <em>One Mission.</em>
+        </h2>
+        <p class="story__names" data-sr data-d="2">Earnie &amp; Sharon Sears</p>
+        <p class="story__body" data-sr data-d="3">
+          Legacy The Initiative was born from a simple truth: too many families are left unprotected and unprepared. Earnie and Sharon Sears built this company not as a business, but as a mission to give every family access to the financial tools and protection they deserve.
+        </p>
+        <p class="story__body" data-sr data-d="3">
+          As co-founders, their shared vision of family, faith, and financial freedom drives everything Legacy does. From the red varsity jackets their team wears with pride to every policy they help secure, this is legacy in motion.
+        </p>
+        <div class="story__values" data-sr data-d="4">
+          <div class="story__value">Family-founded with a community-first mindset</div>
+          <div class="story__value">Personalised plans tailored to every family</div>
+          <div class="story__value">Building leaders who build legacies</div>
+          <div class="story__value">We recruit to give hope. We train to build leaders.</div>
+        </div>
+        <div class="story__cta-row" data-sr data-d="5">
+          <button class="btn btn-navy" onclick="openQuiz()">
+            Discover Your Financial Profile <span class="btn-arrow">→</span>
+          </button>
+          <a href="https://instagram.com/iamlegacyinitiative" target="_blank" class="btn btn-outline">
+            @iamlegacyinitiative
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     SERVICES
+======================================================= -->
+<section class="section section--cream-2" id="services">
+  <div class="wrap">
+    <div class="services__head">
+      <div>
+        <p class="sect-eyebrow" data-sr>What We Cover</p>
+        <h2 class="services__headline" data-sr data-d="1">
+          Protection for<br/><em>Every Chapter</em>
+        </h2>
+      </div>
+      <p class="services__intro" data-sr data-d="2">
+        Whether you need life coverage, a financial roadmap, or a strategy to pass wealth to the next generation, Legacy builds solutions around your family and your future.
+      </p>
+    </div>
+    <div class="services__grid" data-sr data-d="2">
+      <div class="service-card">
+        <div class="service-card__num">01</div>
+        <div class="service-card__icon">
+          <!-- Shield SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="service-card__title">Life Insurance</h3>
+        <p class="service-card__desc">Term, whole, and indexed universal life solutions built around your family's exact needs. Protect the people you love with coverage that lasts.</p>
+        <button class="service-card__link" onclick="openQuiz()">Find My Coverage <span>→</span></button>
+      </div>
+      <div class="service-card">
+        <div class="service-card__num">02</div>
+        <div class="service-card__icon">
+          <!-- Chart SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="2" y1="20" x2="22" y2="20"/>
+          </svg>
+        </div>
+        <h3 class="service-card__title">Financial Planning</h3>
+        <p class="service-card__desc">Build a personalised roadmap to financial freedom. We help you budget, save, and invest so your money works as hard as you do.</p>
+        <button class="service-card__link" onclick="openQuiz()">Start Planning <span>→</span></button>
+      </div>
+      <div class="service-card">
+        <div class="service-card__num">03</div>
+        <div class="service-card__icon">
+          <!-- Building SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="9" width="18" height="13" rx="1"/><path d="M8 22V9"/><path d="M16 22V9"/><path d="M12 3L2 9h20L12 3z"/>
+          </svg>
+        </div>
+        <h3 class="service-card__title">Legacy Building</h3>
+        <p class="service-card__desc">Create generational wealth that outlasts you. From wealth transfer strategies to final expense planning, we ensure your legacy lives on.</p>
+        <button class="service-card__link" onclick="openQuiz()">Build My Legacy <span>→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     STATS — 3 strong stats, no "5 agents"
+======================================================= -->
+<section class="section section--navy" id="stats">
+  <div class="wrap">
+    <div class="stats__grid">
+      <div class="stat-cell" data-sr>
+        <div class="stat-num"><span data-count="1000" data-suffix="K+">0K+</span></div>
+        <div class="stat-label">Families Protected</div>
+      </div>
+      <div class="stat-cell" data-sr data-d="1">
+        <div class="stat-num"><span data-count="10" data-suffix="+">0+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-cell" data-sr data-d="2">
+        <div class="stat-num"><span data-count="98" data-suffix="%">0%</span></div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+    <div class="stats__context" data-sr data-d="3">
+      <p>Built in a community. Trusted by families across the country. <em>Legacy is growing.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     TEAM STRIP
+======================================================= -->
+<div class="team-strip">
+  <img src="Untitled%20design%20(10).png" alt="The Legacy team" class="team-strip__img" />
+  <div class="team-strip__overlay">
+    <div class="team-strip__text" data-sr>
+      <p class="team-strip__eyebrow">Legacy The Initiative</p>
+      <div class="team-strip__headline">
+        We Are The<br/>
+        <em>Winningest</em><br/>
+        Team
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     TESTIMONIALS — new section, builds trust before final CTA
+======================================================= -->
+<section class="section section--cream-2" id="testimonials">
+  <div class="wrap">
+    <h2 class="testi__headline" data-sr>
+      What Families Are<br/><em>Saying</em>
+    </h2>
+    <p class="testi__sub" data-sr data-d="1">
+      Real families. Real protection. Real peace of mind.
+    </p>
+    <div class="testi__grid">
+      <div class="testi-card" data-sr>
+        <p class="testi-card__quote">
+          "I always assumed life insurance was something I couldn't afford. Earnie sat with me for 30 minutes and showed me a plan that fit my budget perfectly. My family is covered. That peace of mind is everything."
+        </p>
+        <div class="testi-card__footer">
+          <div class="testi-card__avatar">MT</div>
+          <div>
+            <div class="testi-card__name">Marcus T.</div>
+            <div class="testi-card__detail">Father of two, Atlanta GA</div>
+            <div class="testi-card__stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card" data-sr data-d="2">
+        <p class="testi-card__quote">
+          "I took the quiz not really expecting much. It told me I was a Legacy Builder and honestly, it described me perfectly. Sharon helped me put together a real plan for generational wealth. This team genuinely cares."
+        </p>
+        <div class="testi-card__footer">
+          <div class="testi-card__avatar">DN</div>
+          <div>
+            <div class="testi-card__name">Deja N.</div>
+            <div class="testi-card__detail">Entrepreneur, Houston TX</div>
+            <div class="testi-card__stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card" data-sr data-d="4">
+        <p class="testi-card__quote">
+          "My husband and I were starting fresh with nothing in place. Legacy walked us through every option, explained everything clearly, and never made us feel pressured. A year later we have coverage and a real financial plan."
+        </p>
+        <div class="testi-card__footer">
+          <div class="testi-card__avatar">KW</div>
+          <div>
+            <div class="testi-card__name">Keisha W.</div>
+            <div class="testi-card__detail">Newlywed, Charlotte NC</div>
+            <div class="testi-card__stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     BOOK A CALL — dedicated focused section (no content competing)
+======================================================= -->
+<section class="book-section" id="book">
+  <div class="wrap">
+    <div class="book-section__inner">
+
+      <!-- Tag -->
+      <div class="book-tag" data-sr>
+        <span class="book-tag__dot"></span>
+        Free 30-Minute Consultation
+      </div>
+
+      <!-- Headline -->
+      <h2 class="book-section__headline" data-sr data-d="1">
+        Your Family Deserves<br/>
+        a Plan. <em>Let's Build<br/>One Together.</em>
+      </h2>
+
+      <!-- Copy -->
+      <p class="book-section__sub" data-sr data-d="2">
+        One honest conversation is all it takes. No pressure, no jargon, no obligation. Just Earnie and Sharon sitting down with you to understand your family's needs and show you exactly what is possible.
+      </p>
+
+      <!-- Availability -->
+      <div class="book-avail" data-sr data-d="3">
+        <span class="book-avail__dot"></span>
+        Spots available this week
+      </div>
+
+      <!-- Primary CTA -->
+      <div class="book-cta-wrap" data-sr data-d="4">
+        <a href="#book" class="btn-book">
+          Book Your Free Call with Legacy
+          <span class="btn-arrow">→</span>
+        </a>
+        <p class="book-cta-note">Free. No commitment. No sales pitch.</p>
+      </div>
+
+      <!-- Guarantees -->
+      <div class="book-section__guarantees" data-sr data-d="5">
+        <span class="book-section__guarantee">Free consultation</span>
+        <span class="book-section__guarantee">No commitment required</span>
+        <span class="book-section__guarantee">No jargon</span>
+      </div>
+
+      <!-- Vertical rule -->
+      <div class="book-divider" data-sr data-d="6"></div>
+
+      <!-- What happens on the call -->
+      <div class="book-steps" data-sr data-d="7">
+        <p class="book-steps__label">What happens on your call</p>
+        <div class="book-steps__grid">
+          <div class="book-step">
+            <div class="book-step__num">01</div>
+            <div class="book-step__title">We Listen</div>
+            <div class="book-step__text">We learn about your family, your goals, and what keeps you up at night</div>
+          </div>
+          <div class="book-step">
+            <div class="book-step__num">02</div>
+            <div class="book-step__title">We Show You Options</div>
+            <div class="book-step__text">We show you the plans that fit your budget with no guesswork or confusion</div>
+          </div>
+          <div class="book-step">
+            <div class="book-step__num">03</div>
+            <div class="book-step__title">You Leave With a Plan</div>
+            <div class="book-step__text">You walk away with total clarity and peace of mind about your family's future</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Founders -->
+      <div class="book-section__founders" data-sr data-d="8">
+        <img src="Screenshot%202026-04-04%20at%2000.57.54.png" alt="Earnie and Sharon Sears" class="book-section__founders-photo" />
+        <div class="book-section__founders-info">
+          <div class="book-section__founders-names">Earnie &amp; Sharon Sears</div>
+          <div class="book-section__founders-role">Founders, Legacy The Initiative</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     FOOTER
+======================================================= -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand-row">
+        <img src="Untitled%20design%20(9).png" alt="Legacy" class="footer__logo" />
+        <span class="footer__brand-name">Legacy The Initiative</span>
+      </div>
+      <p class="footer__tagline">We've Got You Covered. Protecting families, building legacies, and securing futures one family at a time.</p>
+      <div class="footer__social">
+        <a href="https://instagram.com/iamlegacyinitiative" target="_blank" class="footer__social-btn" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="#" class="footer__social-btn" aria-label="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <p class="footer__col-label">Services</p>
+      <ul class="footer__links">
+        <li><a href="#services">Life Insurance</a></li>
+        <li><a href="#services">Financial Planning</a></li>
+        <li><a href="#services">Legacy Building</a></li>
+        <li><a href="#services">Wealth Protection</a></li>
+        <li><a href="#services">Final Expense</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__col-label">Company</p>
+      <ul class="footer__links">
+        <li><a href="#story">About Us</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><button onclick="openQuiz()" style="background:none;border:none;font:inherit;cursor:pointer;color:rgba(255,255,255,0.45);font-size:0.85rem;padding:0;transition:color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Take the Free Quiz</button></li>
+        <li><a href="https://instagram.com/iamlegacyinitiative" target="_blank">@iamlegacyinitiative</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p class="footer__copy">© 2025 Legacy The Initiative. All rights reserved.</p>
+    <div class="footer__legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================================================
+     STICKY QUIZ BAR
+======================================================= -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar__text">
+    <span class="sticky-bar__icon">📋</span>
+    <div>
+      <div class="sticky-bar__headline">Discover your financial profile for free</div>
+      <div class="sticky-bar__sub">Takes 2 minutes. Instant results.</div>
+    </div>
+  </div>
+  <button class="btn btn-gold" onclick="openQuiz()">Start Free Quiz <span class="btn-arrow">→</span></button>
+  <button class="sticky-bar__close" id="stickyClose" aria-label="Dismiss">✕</button>
+</div>
+
+<!-- ======================================================
+     EXIT INTENT
+======================================================= -->
+<div class="exit-overlay" id="exitOverlay">
+  <div class="exit-modal">
+    <button class="exit-modal__close" onclick="closeExit()">✕</button>
+    <div class="exit-modal__icon">🏛️</div>
+    <h2 class="exit-modal__headline">Before you go</h2>
+    <p class="exit-modal__body">
+      Take our free 2-minute quiz and find out exactly what type of financial protection your family needs. No email required to start.
+    </p>
+    <button class="btn btn-red btn-lg" onclick="closeExit();openQuiz();" style="width:100%;justify-content:center;">
+      Take the Free Quiz <span class="btn-arrow">→</span>
+    </button>
+    <p class="exit-modal__note">Takes 2 minutes. Instant results. No financial data required.</p>
+  </div>
+</div>
+
+<!-- ======================================================
+     QUIZ OVERLAY
+======================================================= -->
+<div class="quiz-overlay" id="quizOverlay">
+  <div class="quiz-overlay__nav">
+    <div class="quiz-overlay__brand">
+      <img src="Untitled%20design%20(9).png" alt="Legacy" />
+      <span>Legacy Financial Assessment</span>
+    </div>
+    <button class="quiz-overlay__close" onclick="closeQuiz()">← Back to site</button>
+  </div>
+
+  <div class="qz">
+
+    <!-- INTRO — upgraded with profile teasers -->
+    <div class="qz-screen active" id="qz-intro">
+      <div class="qz-intro">
+        <img src="Untitled%20design%20(9).png" alt="Legacy" class="qz-intro__logo" />
+        <p class="qz-intro__eyebrow">Legacy Financial Assessment</p>
+        <h2 class="qz-intro__headline">What Is Your<br/><em>Financial Profile?</em></h2>
+        <p class="qz-intro__body">Answer 6 quick questions to discover which of the 4 Legacy profiles matches you. Then receive your personalised protection report from Earnie and Sharon.</p>
+        <div class="qz-intro__profiles">
+          <div class="qz-intro__profile">
+            <img src="profile-protector.jpg" class="qz-intro__profile-img" alt="The Protector" />
+            <div class="qz-intro__profile-name">The Protector</div>
+          </div>
+          <div class="qz-intro__profile">
+            <img src="profile-legacy-builder.jpg" class="qz-intro__profile-img" alt="The Legacy Builder" />
+            <div class="qz-intro__profile-name">The Legacy Builder</div>
+          </div>
+          <div class="qz-intro__profile">
+            <img src="profile-freedom-planner.jpg" class="qz-intro__profile-img" alt="The Freedom Planner" />
+            <div class="qz-intro__profile-name">The Freedom Planner</div>
+          </div>
+          <div class="qz-intro__profile">
+            <img src="profile-wealth-creator.jpg" class="qz-intro__profile-img" alt="The Wealth Creator" />
+            <div class="qz-intro__profile-name">The Wealth Creator</div>
+          </div>
+        </div>
+        <button class="btn btn-red btn-lg" onclick="startAssessment()">Find My Profile →</button>
+        <div class="qz-intro__note">
+          <span>Takes 2 minutes</span>
+          <span>No financial data required</span>
+          <span>Instant results</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="qz-screen" id="qz-questions">
+      <div class="qz-progress">
+        <div class="qz-progress__top">
+          <span class="qz-progress__label">Financial Status Assessment</span>
+          <span class="qz-progress__count" id="qCounterLabel">Question 1 of 6</span>
+        </div>
+        <div class="qz-progress__bar">
+          <div class="qz-progress__fill" id="qProgressBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="q-wrap active" id="qq1">
+        <h2 class="q-headline">What matters most to you right now?</h2>
+        <p class="q-sub">Choose the one that resonates most deeply with you.</p>
+        <div class="binary-wrap">
+          <div class="b-card" onclick="pickBinary(1,'A',this)">
+            <div class="b-card__icon">🛡️</div>
+            <div class="b-card__label">Protecting my family today</div>
+            <div class="b-card__hint">Making sure they are covered no matter what happens to me</div>
+          </div>
+          <div class="b-card" onclick="pickBinary(1,'B',this)">
+            <div class="b-card__icon">📈</div>
+            <div class="b-card__label">Building wealth for tomorrow</div>
+            <div class="b-card__hint">Growing assets and creating long term financial freedom</div>
+          </div>
+          <div class="or-badge">OR</div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-wrap" id="qq2">
+        <h2 class="q-headline">Which best describes where you are today?</h2>
+        <p class="q-sub">Be honest with yourself. There is no wrong answer.</p>
+        <div class="binary-wrap">
+          <div class="b-card" onclick="pickBinary(2,'A',this)">
+            <div class="b-card__icon">🌱</div>
+            <div class="b-card__label">Starting fresh</div>
+            <div class="b-card__hint">I have little to no financial protection in place yet</div>
+          </div>
+          <div class="b-card" onclick="pickBinary(2,'B',this)">
+            <div class="b-card__icon">🏗️</div>
+            <div class="b-card__label">Building on what I have</div>
+            <div class="b-card__hint">I have some coverage but know I need to do more</div>
+          </div>
+          <div class="or-badge">OR</div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-wrap" id="qq3">
+        <h2 class="q-headline">What worries you most about the future?</h2>
+        <p class="q-sub">Pick the one that keeps you up at night.</p>
+        <div class="binary-wrap">
+          <div class="b-card" onclick="pickBinary(3,'A',this)">
+            <div class="b-card__icon">❤️</div>
+            <div class="b-card__label">My family would struggle without me</div>
+            <div class="b-card__hint">Bills, mortgage, and daily expenses falling on them</div>
+          </div>
+          <div class="b-card" onclick="pickBinary(3,'B',this)">
+            <div class="b-card__icon">⏳</div>
+            <div class="b-card__label">I won't have enough to retire</div>
+            <div class="b-card__hint">Running out of money or depending on others in old age</div>
+          </div>
+          <div class="or-badge">OR</div>
+        </div>
+      </div>
+
+      <!-- Q4 Multi -->
+      <div class="q-wrap" id="qq4">
+        <h2 class="q-headline">What are your biggest financial goals?</h2>
+        <p class="q-sub">Select up to 3 that apply to you.</p>
+        <div class="chips-wrap" id="chipsWrap">
+          <button class="chip" data-val="debt" onclick="toggleChip(this)">Pay off debt</button>
+          <button class="chip" data-val="home" onclick="toggleChip(this)">Buy a home</button>
+          <button class="chip" data-val="retire" onclick="toggleChip(this)">Retire comfortably</button>
+          <button class="chip" data-val="family" onclick="toggleChip(this)">Protect my family</button>
+          <button class="chip" data-val="business" onclick="toggleChip(this)">Start a business</button>
+          <button class="chip" data-val="legacy" onclick="toggleChip(this)">Leave an inheritance</button>
+          <button class="chip" data-val="education" onclick="toggleChip(this)">Fund education</button>
+          <button class="chip" data-val="savings" onclick="toggleChip(this)">Build emergency savings</button>
+        </div>
+        <div class="q-continue-btn">
+          <button class="btn btn-navy" onclick="advanceMulti(4)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q-wrap" id="qq5">
+        <h2 class="q-headline">When you think about your loved ones, what do you picture?</h2>
+        <p class="q-sub">Choose the vision that feels most like yours.</p>
+        <div class="binary-wrap">
+          <div class="b-card" onclick="pickBinary(5,'A',this)">
+            <div class="b-card__icon">🏠</div>
+            <div class="b-card__label">They are protected and secure</div>
+            <div class="b-card__hint">A safety net so they never have to worry about money</div>
+          </div>
+          <div class="b-card" onclick="pickBinary(5,'B',this)">
+            <div class="b-card__icon">👑</div>
+            <div class="b-card__label">They inherit something great</div>
+            <div class="b-card__hint">Real wealth and opportunity passed down for generations</div>
+          </div>
+          <div class="or-badge">OR</div>
+        </div>
+      </div>
+
+      <!-- Q6 Slider -->
+      <div class="q-wrap" id="qq6">
+        <h2 class="q-headline">How confident do you feel about your financial plan right now?</h2>
+        <p class="q-sub">Be completely honest with yourself.</p>
+        <div class="slider-block">
+          <div class="slider-val" id="sliderVal">3 <sup>/ 5</sup></div>
+          <input type="range" min="1" max="5" value="3" id="confSlider"
+            oninput="document.getElementById('sliderVal').innerHTML = this.value + ' <sup>/ 5</sup>'" />
+          <div class="slider-labels">
+            <span>Not confident at all</span>
+            <span>Somewhat</span>
+            <span>Very confident</span>
+          </div>
+        </div>
+        <div class="slider-continue">
+          <button class="btn btn-navy btn-lg" onclick="finishAssessment()">See My Results →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENERATING -->
+    <div class="qz-screen" id="qz-generating">
+      <div class="gen-screen">
+        <h2>Analysing your assessment&hellip;</h2>
+        <div class="gen-bar"><div class="gen-fill" id="genBar"></div></div>
+        <div class="gen-lines">
+          <div class="gen-line" id="gl1"><div class="gen-dot"></div>Reviewing your protection priorities</div>
+          <div class="gen-line" id="gl2"><div class="gen-dot"></div>Matching goals to Legacy profiles</div>
+          <div class="gen-line" id="gl3"><div class="gen-dot"></div>Calculating your profile fit scores</div>
+          <div class="gen-line done" id="gl4"><div class="gen-dot"></div>Your Legacy profile is ready</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="qz-screen" id="qz-results">
+      <div class="results-screen">
+        <p class="res-eyebrow">Your Legacy Profile</p>
+        <h2 class="res-profile" id="resName">The Legacy Builder</h2>
+        <div class="res-hero" id="resHero">
+          <img src="profile-legacy-builder.jpg" class="res-hero-img" id="resImg" alt="Your Legacy Profile" />
+          <span class="res-hero-label" id="resLabel">The Legacy Builder</span>
+        </div>
+        <div class="res-desc" id="resDesc">Your full profile description appears here.</div>
+
+        <!-- Email gate — shown immediately after profile reveal -->
+        <div class="email-card" id="emailCard">
+          <h3>Unlock your complete Legacy Report</h3>
+          <p>Enter your details and we will send your full personalised financial protection report and connect you with Earnie or Sharon.</p>
+          <div class="form-row">
+            <input type="text" class="finput" id="uName" placeholder="First name" />
+            <input type="email" class="finput" id="uEmail" placeholder="Email address" />
+          </div>
+          <button class="fsub" onclick="submitGate()">Send My Report →</button>
+          <p class="form-note">No spam. Unsubscribe any time.</p>
+        </div>
+
+        <!-- Match scores — revealed after email submit -->
+        <div class="match-card" id="matchCard">
+          <h3>Your Profile Match Scores</h3>
+          <div id="matchRows"></div>
+        </div>
+
+        <!-- Book a call — revealed after email submit -->
+        <div class="book-card" id="bookCard">
+          <img src="Untitled%20design%20(9).png" alt="Legacy" class="book-card__logo" />
+          <p class="book-card__eyebrow">Your Next Step</p>
+          <h3>Ready to build your Legacy?<br/>Let's talk.</h3>
+          <p>Book your free 30-minute consultation with Earnie or Sharon Sears. No pressure, no jargon. Just a real conversation about protecting your family and building your future.</p>
+          <button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="window.location.href='#book';closeQuiz();">
+            Book a Free Call with Legacy →
+          </button>
+          <p class="book-card__note">Free consultation. No commitment. No obligation.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /qz -->
+</div><!-- /quiz-overlay -->
+
+<script>
+// ============================================================
+// PROFILES
+// ============================================================
+const PROFILES = {
+  protector: {
+    name: 'The Protector',
+    icon: '🛡️',
+    img: 'profile-protector.jpg',
+    desc: 'Your number one priority is keeping your family safe and covered. You want to know that no matter what happens to you, the people you love will be financially protected. Life insurance and income protection are the foundation you are looking for. Legacy can build you the right plan.'
+  },
+  legacyBuilder: {
+    name: 'The Legacy Builder',
+    icon: '🏛️',
+    img: 'profile-legacy-builder.jpg',
+    desc: 'You think beyond today. You want to build something real that your children and grandchildren can stand on. Financial protection is just the foundation. Your eyes are always on the long game: generational wealth, estate planning, and leaving a lasting impact. Legacy was built for people like you.'
+  },
+  freedomPlanner: {
+    name: 'The Freedom Planner',
+    icon: '🌅',
+    img: 'profile-freedom-planner.jpg',
+    desc: 'Financial independence is your goal. You want to stop trading time for money and build a life entirely on your own terms. Smart planning, indexed products, and retirement strategies are your path forward. Legacy can help you map the route from where you are to where you want to be.'
+  },
+  wealthCreator: {
+    name: 'The Wealth Creator',
+    icon: '💎',
+    img: 'profile-wealth-creator.jpg',
+    desc: 'You are growth-oriented and ambitious. You see money as a tool to multiply and a platform to scale your impact. You want strategies that work hard so you can build your business, grow your family\'s financial position, and leave something extraordinary behind. Legacy has the tools to help you get there.'
+  }
+};
+
+// ============================================================
+// QUIZ STATE
+// ============================================================
+const ans = {};
+let curQ = 1;
+const TOTAL_Q = 6;
+
+// ============================================================
+// QUIZ OPEN / CLOSE
+// ============================================================
+function openQuiz() {
+  document.getElementById('quizOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  closeExit();
+}
+function closeQuiz() {
+  document.getElementById('quizOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function startAssessment() {
+  showQzScreen('qz-questions');
+  setQ(1);
+}
+
+// ============================================================
+// SCREEN SWITCHING
+// ============================================================
+function showQzScreen(id) {
+  document.querySelectorAll('.qz-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('.quiz-overlay').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// QUESTION NAV
+// ============================================================
+function setQ(n) {
+  document.querySelectorAll('.q-wrap').forEach(q => q.classList.remove('active'));
+  const el = document.getElementById('qq' + n);
+  if (el) el.classList.add('active');
+  curQ = n;
+  const pct = ((n - 1) / TOTAL_Q) * 100;
+  document.getElementById('qProgressBar').style.width = pct + '%';
+  document.getElementById('qCounterLabel').textContent = `Question ${n} of ${TOTAL_Q}`;
+}
+
+function pickBinary(qNum, val, cardEl) {
+  ans['q' + qNum] = val;
+  const parent = cardEl.closest('.binary-wrap');
+  parent.querySelectorAll('.b-card').forEach(c => c.classList.remove('picked'));
+  cardEl.classList.add('picked');
+  setTimeout(() => {
+    if (qNum < TOTAL_Q) setQ(qNum + 1);
+    else finishAssessment();
+  }, 280);
+}
+
+function toggleChip(el) {
+  const selected = document.querySelectorAll('#chipsWrap .chip.picked');
+  if (el.classList.contains('picked')) { el.classList.remove('picked'); return; }
+  if (selected.length >= 3) return;
+  el.classList.add('picked');
+}
+
+function advanceMulti(qNum) {
+  const chips = [...document.querySelectorAll('#chipsWrap .chip.picked')].map(c => c.dataset.val);
+  ans['q' + qNum] = chips;
+  if (qNum < TOTAL_Q) setQ(qNum + 1);
+  else finishAssessment();
+}
+
+// ============================================================
+// FINISH -> GENERATING
+// ============================================================
+function finishAssessment() {
+  ans['q6'] = document.getElementById('confSlider').value;
+  showQzScreen('qz-generating');
+
+  const bar = document.getElementById('genBar');
+  let p = 0;
+  const t = setInterval(() => {
+    p += 2;
+    bar.style.width = Math.min(p, 100) + '%';
+    if (p >= 100) clearInterval(t);
+  }, 22);
+
+  ['gl1','gl2','gl3','gl4'].forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('show'), 350 + i * 520);
+  });
+
+  setTimeout(() => {
+    computeProfile();
+    showQzScreen('qz-results');
+  }, 2800);
+}
+
+// ============================================================
+// PROFILE COMPUTATION
+// ============================================================
+function computeProfile() {
+  const s = { protector: 0, legacyBuilder: 0, freedomPlanner: 0, wealthCreator: 0 };
+
+  if (ans.q1 === 'A') s.protector += 30; else { s.wealthCreator += 20; s.freedomPlanner += 10; }
+  if (ans.q2 === 'A') { s.protector += 15; s.freedomPlanner += 10; } else { s.legacyBuilder += 15; s.wealthCreator += 15; }
+  if (ans.q3 === 'A') s.protector += 25; else { s.freedomPlanner += 25; s.wealthCreator += 10; }
+
+  const chips = ans.q4 || [];
+  if (chips.includes('family') || chips.includes('debt')) s.protector += 10;
+  if (chips.includes('legacy') || chips.includes('education')) s.legacyBuilder += 10;
+  if (chips.includes('retire') || chips.includes('savings')) s.freedomPlanner += 10;
+  if (chips.includes('business') || chips.includes('home')) s.wealthCreator += 10;
+
+  if (ans.q5 === 'A') s.protector += 20; else s.legacyBuilder += 25;
+
+  const conf = parseInt(ans.q6 || 3);
+  if (conf <= 2) s.protector += 10;
+  if (conf >= 4) { s.wealthCreator += 10; s.legacyBuilder += 5; }
+
+  const keys = Object.keys(s);
+  const max = Math.max(...keys.map(k => s[k]));
+  const pcts = {};
+  keys.forEach(k => pcts[k] = Math.round((s[k] / max) * 100));
+
+  const winner = keys.reduce((a, b) => s[a] > s[b] ? a : b);
+  const p = PROFILES[winner];
+
+  document.getElementById('resName').textContent = p.name;
+  document.getElementById('resImg').src = p.img;
+  document.getElementById('resImg').alt = p.name;
+  document.getElementById('resLabel').textContent = p.name;
+  document.getElementById('resDesc').textContent = p.desc;
+
+  window._pcts = pcts;
+  window._winner = winner;
+}
+
+// ============================================================
+// EMAIL GATE
+// ============================================================
+function submitGate() {
+  const n = document.getElementById('uName');
+  const e = document.getElementById('uEmail');
+  n.classList.remove('err'); e.classList.remove('err');
+  let ok = true;
+  if (!n.value.trim()) { n.classList.add('err'); ok = false; }
+  if (!e.value.trim() || !e.value.includes('@')) { e.classList.add('err'); ok = false; }
+  if (!ok) return;
+
+  document.getElementById('emailCard').style.display = 'none';
+  renderMatchBars();
+  document.getElementById('matchCard').style.display = 'block';
+  document.getElementById('bookCard').style.display = 'block';
+
+  setTimeout(() => {
+    document.querySelector('.quiz-overlay').scrollTo({ top: document.getElementById('bookCard').offsetTop - 60, behavior: 'smooth' });
+  }, 100);
+}
+
+function renderMatchBars() {
+  const pcts = window._pcts;
+  const winner = window._winner;
+  const labels = { protector: 'The Protector', legacyBuilder: 'The Legacy Builder', freedomPlanner: 'The Freedom Planner', wealthCreator: 'The Wealth Creator' };
+  const sorted = Object.keys(pcts).sort((a, b) => pcts[b] - pcts[a]);
+  const container = document.getElementById('matchRows');
+  container.innerHTML = '';
+  sorted.forEach(key => {
+    const w = key === winner;
+    const row = document.createElement('div');
+    row.className = 'mrow' + (w ? ' winner' : '');
+    row.innerHTML = `<div class="mrow__name">${labels[key]}</div><div class="mrow__bar"><div class="mrow__fill" style="width:0%" data-t="${pcts[key]}"></div></div><div class="mrow__pct">${pcts[key]}%</div>`;
+    container.appendChild(row);
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    container.querySelectorAll('.mrow__fill').forEach(f => { f.style.width = f.dataset.t + '%'; });
+  }));
+}
+
+// ============================================================
+// NAV
+// ============================================================
+const mainNav = document.getElementById('mainNav');
+const ham = document.getElementById('navHam');
+const mob = document.getElementById('navMobile');
+
+window.addEventListener('scroll', () => {
+  mainNav.classList.toggle('scrolled', window.scrollY > 60);
+  const sb = document.getElementById('stickyBar');
+  if (window.scrollY > 500 && !stickyDismissed) sb.classList.add('visible');
+  else sb.classList.remove('visible');
+}, { passive: true });
+
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+});
+function closeMobileNav() { ham.classList.remove('open'); mob.classList.remove('open'); }
+mob.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+
+// ============================================================
+// SCROLL REVEAL
+// ============================================================
+const srObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('sr-in'); srObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('[data-sr]').forEach(el => srObs.observe(el));
+
+// ============================================================
+// COUNT UP STATS
+// ============================================================
+const countObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count;
+      const suffix = el.dataset.suffix || '';
+      const isK = target >= 1000;
+      const dur = 1600;
+      const start = performance.now();
+      (function tick(now) {
+        const prog = Math.min((now - start) / dur, 1);
+        const v = Math.floor((1 - Math.pow(1 - prog, 3)) * target);
+        el.textContent = isK ? (v >= 1000 ? Math.floor(v / 1000) + 'K' : v) + suffix : v + suffix;
+        if (prog < 1) requestAnimationFrame(tick);
+        else el.textContent = isK ? Math.floor(target / 1000) + 'K' + suffix : target + suffix;
+      })(start);
+    });
+    countObs.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+const statsSection = document.getElementById('stats');
+if (statsSection) countObs.observe(statsSection);
+
+// ============================================================
+// STICKY BAR
+// ============================================================
+let stickyDismissed = false;
+document.getElementById('stickyClose').addEventListener('click', () => {
+  stickyDismissed = true;
+  document.getElementById('stickyBar').classList.remove('visible');
+});
+
+// ============================================================
+// EXIT INTENT
+// ============================================================
+let exitShown = false;
+document.addEventListener('mouseleave', (e) => {
+  if (e.clientY < 10 && !exitShown && !document.getElementById('quizOverlay').classList.contains('open')) {
+    exitShown = true;
+    document.getElementById('exitOverlay').classList.add('show');
+  }
+});
+function closeExit() {
+  document.getElementById('exitOverlay').classList.remove('show');
+}
+document.getElementById('exitOverlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('exitOverlay')) closeExit();
+});
+</script>
+
+</body>
+</html>

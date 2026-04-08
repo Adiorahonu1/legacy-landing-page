@@ -284,7 +284,7 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 80% 20%, rgba(200,16,46,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(200,16,46,0.12) 0%, transparent 55%),
         radial-gradient(ellipse at 20% 90%, rgba(184,151,61,0.08) 0%, transparent 50%);
       z-index: 1;
     }
@@ -294,7 +294,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 30% top;
+      object-position: center 20%;
       z-index: 2;
       opacity: 0;
       animation: photoReveal 1s var(--ease) 0.4s forwards;
@@ -309,25 +309,25 @@
       z-index: 3;
       background: rgba(14,27,56,0.85);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(184,151,61,0.3);
       border-radius: var(--r);
-      padding: 1rem 1.25rem;
+      padding: 1rem 1.5rem;
       opacity: 0;
       animation: fadeUp 0.8s var(--ease) 1s forwards;
     }
     .hero__photo-badge-title {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-style: italic;
       color: white;
     }
     .hero__photo-badge-sub {
       font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-top: 0.2rem;
+      margin-top: 0.3rem;
     }
     .hero__red-line {
       position: absolute;
@@ -923,6 +923,103 @@
     .team-strip__sub {
       font-size: 0;
       margin-top: 0;
+    }
+
+    /* =====================================================
+       FAMILY SECTION
+    ===================================================== */
+    .family { background: var(--navy); overflow: hidden; }
+    .family__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+      align-items: stretch;
+    }
+    .family__photo-wrap {
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+    }
+    .family__photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .family__photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--navy) 100%);
+    }
+    .family__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 3rem;
+    }
+    .family__eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .family__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 2px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .family__headline {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 4vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.08;
+      color: white;
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.01em;
+    }
+    .family__headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .family__body {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.25rem;
+      max-width: 460px;
+    }
+    .family__heart {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 1rem;
+    }
+    .family__heart svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--red);
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .family__grid { grid-template-columns: 1fr; }
+      .family__photo-wrap { min-height: 320px; }
+      .family__photo-overlay { background: linear-gradient(to bottom, transparent 40%, var(--navy) 100%); }
+      .family__content { padding: 3rem 1.5rem; }
     }
 
     /* =====================================================
@@ -1594,7 +1691,7 @@
       .nav__links, .nav__actions { display: none; }
       .nav__ham { display: flex; }
       .hero__right { height: 80vw; min-height: 320px; max-height: 480px; }
-      .hero__photo { object-position: center top; }
+      .hero__photo { object-position: center 15%; }
       .hero__left { padding: 2.5rem 1.5rem 3rem; }
       .services__grid { grid-template-columns: 1fr; }
       .stats__grid { grid-template-columns: 1fr 1fr; }
@@ -1685,10 +1782,10 @@
   </div>
   <div class="hero__right">
     <div class="hero__red-line"></div>
-    <img src="Screenshot%202026-04-04%20at%2002.47.42.png" alt="Earnie Sears, CEO" class="hero__photo" />
+    <img src="Screenshot%202026-04-08%20at%2017.46.57.png" alt="Earnie and Sharon Sears, Co-Founders" class="hero__photo" />
     <div class="hero__photo-badge">
-      <div class="hero__photo-badge-title">Earnie Sears</div>
-      <div class="hero__photo-badge-sub">CEO &amp; Co-Founder</div>
+      <div class="hero__photo-badge-title">Earnie &amp; Sharon Sears</div>
+      <div class="hero__photo-badge-sub">Co-Founders, Legacy The Initiative</div>
     </div>
   </div>
 </section>
@@ -1740,10 +1837,10 @@
           <span class="quiz-cta__meta-item">Instant results</span>
         </div>
         <div class="quiz-cta__guide" data-sr data-d="5">
-          <img src="Screenshot%202026-04-04%20at%2003.09.52.png" alt="Earnie Sears" class="quiz-cta__guide-photo" />
+          <img src="Screenshot%202026-04-04%20at%2000.57.54.png" alt="Earnie and Sharon Sears" class="quiz-cta__guide-photo" />
           <div>
-            <div class="quiz-cta__guide-name">Earnie Sears</div>
-            <div class="quiz-cta__guide-role">CEO, Legacy The Initiative</div>
+            <div class="quiz-cta__guide-name">Earnie &amp; Sharon Sears</div>
+            <div class="quiz-cta__guide-role">Co-Founders, Legacy The Initiative</div>
           </div>
         </div>
       </div>
@@ -1971,6 +2068,38 @@
     </div>
   </div>
 </div>
+
+<!-- ======================================================
+     FAMILY — the reason we fight every day
+======================================================= -->
+<section class="family" id="family">
+  <div class="family__grid">
+    <div class="family__photo-wrap" data-sr>
+      <img src="kids.png" alt="The Sears family" class="family__photo" />
+      <div class="family__photo-overlay"></div>
+    </div>
+    <div class="family__content">
+      <p class="family__eyebrow" data-sr>Our Why</p>
+      <h2 class="family__headline" data-sr data-d="1">
+        Our Greatest Legacy<br/>
+        Is Not A Policy.<br/>
+        <em>It Is Them.</em>
+      </h2>
+      <p class="family__body" data-sr data-d="2">
+        When Earnie and Sharon built Legacy The Initiative, it was never just about business. It was about building something their children could be proud of, and making sure no family had to face the future unprepared.
+      </p>
+      <p class="family__body" data-sr data-d="3">
+        Every policy they write, every family they sit down with, every plan they build together is rooted in one truth: your children deserve a tomorrow that is protected today. That is the legacy they are building. For theirs and for yours.
+      </p>
+      <div class="family__heart" data-sr data-d="4">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        Built on faith. Driven by family.
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ======================================================
      TESTIMONIALS — new section, builds trust before final CTA
@@ -2709,15 +2838,15 @@ document.getElementById('stickyClose').addEventListener('click', () => {
 });
 
 // ============================================================
-// EXIT INTENT
+// EXIT INTENT — triggers after 30 seconds on page
 // ============================================================
 let exitShown = false;
-document.addEventListener('mouseleave', (e) => {
-  if (e.clientY < 10 && !exitShown && !document.getElementById('quizOverlay').classList.contains('open')) {
+setTimeout(() => {
+  if (!exitShown && !document.getElementById('quizOverlay').classList.contains('open')) {
     exitShown = true;
     document.getElementById('exitOverlay').classList.add('show');
   }
-});
+}, 30000);
 function closeExit() {
   document.getElementById('exitOverlay').classList.remove('show');
 }

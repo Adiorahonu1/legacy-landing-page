@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Legacy The Initiative — We've Got You Covered</title>
+  <title>Legacy The Initiative | Life Insurance, Financial Planning &amp; Legacy Building</title>
+  <meta name="description" content="Earnie and Sharon Sears built Legacy on one belief: every family deserves real protection and a plan that outlasts them. Life insurance, financial planning, and legacy building designed around the people you love most." />
+  <meta property="og:title" content="Legacy The Initiative | We've Got You Covered" />
+  <meta property="og:description" content="Life insurance, financial planning, and legacy building designed around your family. Take our free 2-minute quiz to discover your financial profile." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="Untitled%20design%20(9).png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="Untitled%20design%20(9).png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -22,7 +29,7 @@
       --cream-2:    #f3f1ec;
       --white:      #ffffff;
       --text:       #0e1b38;
-      --muted:      #7a8096;
+      --muted:      #5c6278;
       --border:     #e5e3dc;
 
       --serif: 'Cormorant Garamond', Georgia, serif;
@@ -50,8 +57,6 @@
     input, textarea { font-family: inherit; }
     ::selection { background: var(--red); color: white; }
     :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
-    * { scrollbar-width: none; -ms-overflow-style: none; }
-    *::-webkit-scrollbar { display: none; }
 
     /* =====================================================
        SCROLL REVEAL
@@ -127,7 +132,7 @@
       justify-content: space-between;
     }
     .nav__brand { display: flex; align-items: center; gap: 0.6rem; }
-    .nav__logo { width: 38px; height: 38px; object-fit: contain; mix-blend-mode: multiply; }
+    .nav__logo { width: 38px; height: 38px; object-fit: contain; }
     .nav__name {
       font-family: var(--sans);
       font-weight: 700;
@@ -277,7 +282,7 @@
       position: relative;
       overflow: hidden;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
     }
     .hero__right::before {
       content: '';
@@ -290,23 +295,25 @@
     }
     .hero__photo {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      max-width: 480px;
+      height: auto;
+      object-fit: contain;
       z-index: 2;
       opacity: 0;
       animation: photoReveal 1s var(--ease) 0.4s forwards;
     }
     @keyframes photoReveal {
-      from { opacity: 0; transform: scale(1.04); }
-      to   { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: translate(-50%, -50%) scale(1.06); }
+      to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
     .hero__photo-badge {
       position: absolute;
       bottom: 2.5rem; left: 2rem;
-      z-index: 3;
+      z-index: 7;
       background: rgba(14,27,56,0.85);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(184,151,61,0.3);
@@ -334,7 +341,7 @@
       top: 0; bottom: 0; left: 0;
       width: 3px;
       background: linear-gradient(to bottom, transparent, var(--red) 30%, var(--red) 70%, transparent);
-      z-index: 4;
+      z-index: 8;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
@@ -409,6 +416,60 @@
     .sect-eyebrow--light::before { background: rgba(255,255,255,0.25); }
 
     /* =====================================================
+       CREDENTIALS STRIP
+    ===================================================== */
+    .cred-strip {
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding-block: 2.25rem;
+    }
+    .cred-strip__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .cred-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0.75rem 2.25rem;
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cred-item:last-child { border-right: none; }
+    .cred-item__icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(200,16,46,0.06);
+      border: 1px solid rgba(200,16,46,0.14);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cred-item__icon svg { width: 18px; height: 18px; color: var(--red); }
+    .cred-item__text { line-height: 1.25; }
+    .cred-item__label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .cred-item__sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    @media (max-width: 768px) {
+      .cred-strip__inner { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding: 0; }
+      .cred-item { padding: 0.75rem 1.5rem; flex-shrink: 0; }
+    }
+
+    /* =====================================================
        QUIZ CTA SECTION (moved to position 3)
     ===================================================== */
     .quiz-cta { background: var(--navy); position: relative; overflow: hidden; }
@@ -473,11 +534,11 @@
       line-height: 1.2;
     }
     .quiz-cta__guide-role {
-      font-size: 0.62rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.65);
       margin-top: 0.15rem;
     }
     .quiz-cta__meta-item {
@@ -485,12 +546,21 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.75);
       display: flex;
       align-items: center;
       gap: 0.4rem;
     }
-    .quiz-cta__meta-item::before { content: '✓'; color: var(--gold); }
+    .quiz-cta__meta-item::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8973d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
 
     /* Report preview card (right side of quiz CTA) */
     .quiz-report-preview {
@@ -519,12 +589,14 @@
       overflow: hidden;
     }
     .qrp__profile-banner::before {
-      content: '🏛️';
+      content: '';
       position: absolute;
-      right: 1rem; top: 50%;
+      right: 1.25rem; top: 50%;
       transform: translateY(-50%);
-      font-size: 4rem;
-      opacity: 0.15;
+      width: 64px; height: 64px;
+      border: 2px solid rgba(184,151,61,0.25);
+      border-radius: 50%;
+      opacity: 0.6;
     }
     .qrp__profile-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
     .qrp__profile-name { font-family: var(--serif); font-size: 1.6rem; font-style: italic; color: white; line-height: 1.15; }
@@ -569,7 +641,7 @@
     }
     .qrp__lock:hover { backdrop-filter: blur(2px); }
     .qrp__lock-inner { text-align: center; color: white; }
-    .qrp__lock-inner .lock-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    .qrp__lock-inner .lock-icon { display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
     .qrp__lock-inner p { font-size: 0.85rem; font-weight: 600; opacity: 0.85; }
 
     /* =====================================================
@@ -653,7 +725,11 @@
       right: 12px; bottom: -12px;
       border: 1.5px solid var(--red);
       border-radius: 4px;
-      z-index: -1;
+      z-index: 0;
+    }
+    .story__photo {
+      position: relative;
+      z-index: 1;
     }
     .story__badge {
       position: absolute;
@@ -857,7 +933,7 @@
       font-weight: 600;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.72);
       margin-top: 0.5rem;
     }
     .stats__context {
@@ -868,7 +944,7 @@
       font-family: var(--serif);
       font-size: 1.25rem;
       font-style: italic;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.78);
     }
     .stats__context em { color: var(--gold); font-style: normal; }
 
@@ -994,7 +1070,7 @@
     .family__body {
       font-size: 1.05rem;
       line-height: 1.9;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.82);
       margin-bottom: 1.25rem;
       max-width: 460px;
     }
@@ -1098,6 +1174,95 @@
     .testi-card__stars span { color: var(--gold); font-size: 0.75rem; }
 
     /* =====================================================
+       FAQ
+    ===================================================== */
+    .faq__headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 600;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+    .faq__headline em { font-style: italic; color: var(--red); }
+    .faq__sub {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 3rem;
+    }
+    .faq__list {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+    .faq-item__q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.35rem 0;
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      background: none;
+      border: none;
+      text-align: left;
+      line-height: 1.35;
+      transition: color 0.2s ease;
+    }
+    .faq-item__q:hover { color: var(--red); }
+    .faq-item__icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--cream-2);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+      color: var(--muted);
+      transition: transform 0.3s var(--ease), background 0.3s ease, border-color 0.3s ease;
+    }
+    .faq-item.open .faq-item__icon {
+      transform: rotate(45deg);
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+    }
+    .faq-item__a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s var(--ease), padding 0.35s var(--ease);
+      padding-bottom: 0;
+    }
+    .faq-item.open .faq-item__a {
+      max-height: 300px;
+      padding-bottom: 1.35rem;
+    }
+    .faq-item__a p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    /* =====================================================
        BOOK A CALL — high-conversion final section
     ===================================================== */
     .book-section {
@@ -1178,7 +1343,7 @@
     .book-section__sub {
       font-size: 1.05rem;
       line-height: 1.85;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.80);
       max-width: 540px;
       margin: 0 auto 2.25rem;
     }
@@ -1190,7 +1355,7 @@
       gap: 0.625rem;
       font-size: 0.82rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.75);
       margin-bottom: 2rem;
     }
     .book-avail__dot {
@@ -1239,7 +1404,7 @@
     .btn-book:hover .btn-arrow { transform: translateX(5px); }
     .book-cta-note {
       font-size: 0.75rem;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.55);
       margin-top: 0.875rem;
       letter-spacing: 0.05em;
     }
@@ -1257,12 +1422,21 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.72);
       display: flex;
       align-items: center;
       gap: 0.4rem;
     }
-    .book-section__guarantee::before { content: '✓'; color: var(--gold); }
+    .book-section__guarantee::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8973d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
 
     /* Divider */
     .book-divider {
@@ -1279,7 +1453,7 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.60);
       margin-bottom: 1.75rem;
     }
     .book-steps__grid {
@@ -1315,7 +1489,7 @@
     .book-step__text {
       font-size: 0.8rem;
       line-height: 1.6;
-      color: rgba(255,255,255,0.38);
+      color: rgba(255,255,255,0.72);
     }
 
     /* Founders strip */
@@ -1347,8 +1521,202 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.65);
       margin-top: 0.2rem;
+    }
+
+    /* =====================================================
+       ACHIEVEMENT — $3M Annuity Circle
+    ===================================================== */
+    /* =====================================================
+       ACHIEVEMENT — dark panel, text-left / photo-right
+    ===================================================== */
+    .achieve { background: var(--navy); overflow: hidden; }
+    .achieve .sect-eyebrow { color: var(--gold); border-color: rgba(184,151,61,0.35); }
+    .achieve__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    /* Photo column */
+    .achieve__photo-wrap {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    }
+    .achieve__photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    /* Gradient burn badge at bottom of photo */
+    .achieve__badge {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,16,43,0.97) 0%, rgba(0,16,43,0.55) 55%, transparent 100%);
+      padding: 3rem 1.75rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .achieve__badge-num {
+      font-family: var(--serif);
+      font-size: 2.75rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .achieve__badge-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-top: 0.3rem;
+    }
+    /* Text column — white on dark */
+    .achieve__headline {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: white;
+      margin-bottom: 1.25rem;
+    }
+    .achieve__headline em { font-style: italic; color: var(--gold); }
+    .achieve__body { font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.82); margin-bottom: 1.75rem; }
+    .achieve__stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .achieve__stat-num {
+      font-family: var(--serif);
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .achieve__stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+      margin-top: 0.25rem;
+    }
+    .achieve__co-founder {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(184,151,61,0.2);
+      border-radius: 50px;
+      width: fit-content;
+    }
+    .achieve__co-founder-avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 15%;
+      border: 2px solid rgba(184,151,61,0.5);
+      flex-shrink: 0;
+    }
+    .achieve__co-founder-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: white;
+      line-height: 1.2;
+    }
+    .achieve__co-founder-role {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+      margin-top: 0.2rem;
+    }
+    @media (max-width: 991px) {
+      .achieve__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .achieve__photo-wrap { max-width: 400px; }
+    }
+
+    /* =====================================================
+       BOOKING AGENT CARDS — Earnie + Sharon
+    ===================================================== */
+    .book-agents {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      max-width: 580px;
+      margin: 0 auto 1.75rem;
+    }
+    .book-agent-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2rem 1.5rem 1.75rem;
+      text-align: center;
+      transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .book-agent-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .book-agent__photo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(184,151,61,0.4);
+      margin-bottom: 0.25rem;
+      flex-shrink: 0;
+    }
+    .book-agent__name {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: white;
+      line-height: 1.2;
+    }
+    .book-agent__role {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 0.5rem;
+    }
+    .book-agent__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.25rem;
+      transition: gap 0.25s ease;
+    }
+    .book-agent-card:hover .book-agent__btn { gap: 0.7rem; }
+    @media (max-width: 640px) {
+      .book-agents { grid-template-columns: 1fr; max-width: 360px; }
     }
 
     /* =====================================================
@@ -1372,7 +1740,7 @@
     .footer__brand-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.875rem; }
     .footer__logo { width: 34px; height: 34px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; }
     .footer__brand-name { font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: white; }
-    .footer__tagline { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.35); max-width: 260px; margin-bottom: 1.25rem; }
+    .footer__tagline { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.72); max-width: 260px; margin-bottom: 1.25rem; }
     .footer__social { display: flex; gap: 0.5rem; }
     .footer__social-btn {
       width: 32px; height: 32px;
@@ -1384,14 +1752,14 @@
       transition: border-color 0.2s ease, color 0.2s ease;
     }
     .footer__social-btn:hover { border-color: var(--red); color: var(--red); }
-    .footer__col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 1.25rem; }
+    .footer__col-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.58); margin-bottom: 1.25rem; }
     .footer__links { display: flex; flex-direction: column; gap: 0.65rem; }
-    .footer__links a { font-size: 0.85rem; color: rgba(255,255,255,0.45); transition: color 0.2s ease; }
+    .footer__links a { font-size: 0.85rem; color: rgba(255,255,255,0.75); transition: color 0.2s ease; }
     .footer__links a:hover { color: white; }
     .footer__bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer__copy { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .footer__copy { font-size: 0.75rem; color: rgba(255,255,255,0.52); }
     .footer__legal { display: flex; gap: 1.5rem; }
-    .footer__legal a { font-size: 0.75rem; color: rgba(255,255,255,0.25); transition: color 0.2s ease; }
+    .footer__legal a { font-size: 0.75rem; color: rgba(255,255,255,0.58); transition: color 0.2s ease; }
     .footer__legal a:hover { color: rgba(255,255,255,0.6); }
 
     /* =====================================================
@@ -1416,7 +1784,7 @@
     .sticky-bar__text { display: flex; align-items: center; gap: 0.875rem; }
     .sticky-bar__icon { font-size: 1.25rem; flex-shrink: 0; }
     .sticky-bar__headline { font-family: var(--serif); font-size: 1rem; font-style: italic; color: white; }
-    .sticky-bar__sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+    .sticky-bar__sub { font-size: 0.75rem; color: rgba(255,255,255,0.72); }
     .sticky-bar__close {
       width: 28px; height: 28px;
       border-radius: 50%;
@@ -1541,14 +1909,25 @@
       object-position: top center;
       display: block;
     }
-    .qz-intro__profile-name { font-size: 0.62rem; font-weight: 600; color: rgba(255,255,255,0.65); line-height: 1.4; padding: 0.5rem 0.4rem 0.6rem; }
+    .qz-intro__profile-name { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.65); line-height: 1.4; padding: 0.5rem 0.4rem 0.6rem; }
     .qz-intro__note {
       font-size: 0.75rem; color: var(--muted);
       margin-top: 0.875rem;
       display: flex; align-items: center; justify-content: center;
       gap: 1.25rem; flex-wrap: wrap;
     }
-    .qz-intro__note span::before { content: '✓ '; color: var(--red); font-weight: 700; }
+    .qz-intro__note span::before {
+      content: '';
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      margin-right: 4px;
+      vertical-align: middle;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8102E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
 
     /* Progress */
     .qz-progress { margin-bottom: 2.5rem; }
@@ -1571,6 +1950,7 @@
       border: 2px solid var(--border);
       border-radius: var(--r);
       padding: 1.75rem 1.25rem;
+      min-height: 44px;
       text-align: center;
       cursor: pointer;
       transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
@@ -1585,7 +1965,7 @@
 
     /* Multi */
     .chips-wrap { display: flex; flex-wrap: wrap; gap: 0.625rem; justify-content: center; margin-bottom: 2rem; }
-    .chip { background: white; border: 2px solid var(--border); border-radius: 100px; padding: 0.6rem 1.1rem; font-size: 0.875rem; font-weight: 500; color: var(--navy); cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; }
+    .chip { background: white; border: 2px solid var(--border); border-radius: 100px; padding: 0.7rem 1.25rem; min-height: 44px; font-size: 0.875rem; font-weight: 500; color: var(--navy); cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; display: inline-flex; align-items: center; }
     .chip:hover { border-color: var(--red); }
     .chip.picked { border-color: var(--red); background: var(--red); color: white; }
     .q-continue-btn { display: flex; justify-content: center; }
@@ -1691,7 +2071,7 @@
       .nav__links, .nav__actions { display: none; }
       .nav__ham { display: flex; }
       .hero__right { height: 80vw; min-height: 320px; max-height: 480px; }
-      .hero__photo { object-position: center 15%; }
+      .hero__photo { width: 60%; }
       .hero__left { padding: 2.5rem 1.5rem 3rem; }
       .services__grid { grid-template-columns: 1fr; }
       .stats__grid { grid-template-columns: 1fr 1fr; }
@@ -1709,6 +2089,59 @@
       .team-strip__img { height: 520px; }
       .team-strip__headline { font-size: clamp(2.5rem, 10vw, 4rem); line-height: 1.0; }
     }
+    /* =====================================================
+       HEADLINE LINE REVEAL
+       Overrides generic data-sr fade-up for h2 elements.
+       Each <br>-separated line slides up individually.
+    ===================================================== */
+    h2[data-sr] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .hl-line {
+      display: block;
+      overflow: hidden;
+    }
+    .hl-inner {
+      display: block;
+      transform: translateY(112%);
+      transition: transform 0.92s cubic-bezier(0.16, 1, 0.3, 1);
+      padding-bottom: 0.06em;
+    }
+    h2.sr-in .hl-inner {
+      transform: translateY(0);
+    }
+
+    /* =====================================================
+       HERO RIGHT PANEL — diagonal clip-path reveal
+       Ported from React framer-motion component.
+       Only active on desktop (>=992px) where the split
+       grid exists. The diagonal replaces the red line.
+    ===================================================== */
+    @keyframes heroRightReveal {
+      from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+      to   { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%); }
+    }
+
+    @media (min-width: 992px) {
+      /* Hide vertical red line — diagonal is the new separator */
+      .hero__red-line { display: none; }
+
+      /* Animate the right panel in with a diagonal wipe */
+      .hero__right {
+        animation: heroRightReveal 1.2s cubic-bezier(0.33, 1, 0.68, 1) 0.2s both;
+      }
+    }
+
+    /* Respect reduced-motion: skip animation, apply final state */
+    @media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+      .hero__right {
+        animation: none;
+        clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1726,11 +2159,12 @@
       <li><a href="#story" class="nav__link">About</a></li>
       <li><a href="#services" class="nav__link">Services</a></li>
       <li><a href="#quiz-cta" class="nav__link">Free Quiz</a></li>
-      <li><a href="https://calendly.com/adiorahonuora/new-meeting" target="_blank" class="nav__link">Contact</a></li>
+      <li><a href="#faq" class="nav__link">FAQ</a></li>
+      <li><a href="#book" class="nav__link">Book a Call</a></li>
     </ul>
     <div class="nav__actions">
       <button class="btn btn-red" onclick="openQuiz()">Take the Free Quiz</button>
-      <a href="https://calendly.com/adiorahonuora/new-meeting" target="_blank" class="btn btn-outline">Book a Call</a>
+      <a href="#book" class="btn btn-outline">Book a Call</a>
     </div>
     <button class="nav__ham" id="navHam" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1740,7 +2174,8 @@
     <a href="#story">About</a>
     <a href="#services">Services</a>
     <a href="#quiz-cta">Free Quiz</a>
-    <a href="https://calendly.com/adiorahonuora/new-meeting" target="_blank">Contact</a>
+    <a href="#faq">FAQ</a>
+    <a href="#book">Book a Call</a>
     <button class="btn btn-red" onclick="openQuiz();closeMobileNav();">Take the Free Quiz</button>
   </div>
 </nav>
@@ -1763,30 +2198,26 @@
       <button class="btn btn-red btn-lg" onclick="openQuiz()">
         Discover My Profile <span class="btn-arrow">→</span>
       </button>
-      <a href="https://calendly.com/adiorahonuora/new-meeting" target="_blank" class="btn btn-outline btn-lg">Book a Free Call</a>
+      <a href="#book" class="btn btn-outline btn-lg">Book a Free Call</a>
     </div>
-    <div class="hero__trust">
+    <div class="hero__trust" id="heroTrust">
       <div class="hero__trust-item">
-        <span class="hero__trust-num">1K+</span>
+        <span class="hero__trust-num"><span data-count="1000" data-suffix="K+">1K+</span></span>
         <span class="hero__trust-label">Families Protected</span>
       </div>
       <div class="hero__trust-item">
-        <span class="hero__trust-num">10+</span>
+        <span class="hero__trust-num"><span data-count="10" data-suffix="+">10+</span></span>
         <span class="hero__trust-label">Years Experience</span>
       </div>
       <div class="hero__trust-item">
-        <span class="hero__trust-num">98%</span>
+        <span class="hero__trust-num"><span data-count="98" data-suffix="%">98%</span></span>
         <span class="hero__trust-label">Client Satisfaction</span>
       </div>
     </div>
   </div>
   <div class="hero__right">
     <div class="hero__red-line"></div>
-    <img src="Screenshot%202026-04-08%20at%2017.46.57.png" alt="Earnie and Sharon Sears, Co-Founders" class="hero__photo" />
-    <div class="hero__photo-badge">
-      <div class="hero__photo-badge-title">Earnie &amp; Sharon Sears</div>
-      <div class="hero__photo-badge-sub">Co-Founders, Legacy The Initiative</div>
-    </div>
+    <img src="Untitled%20design%20(9).png" alt="Legacy The Initiative logo" class="hero__photo" fetchpriority="high" />
   </div>
 </section>
 
@@ -1815,6 +2246,59 @@
 </div>
 
 <!-- ======================================================
+     CREDENTIALS STRIP — trust before the quiz ask
+======================================================= -->
+<div class="cred-strip">
+  <div class="cred-strip__inner">
+    <div class="cred-item">
+      <div class="cred-item__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="cred-item__text">
+        <div class="cred-item__label">Licensed Agents</div>
+        <div class="cred-item__sub">State-licensed professionals</div>
+      </div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-item__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="cred-item__text">
+        <div class="cred-item__label">10+ Years Experience</div>
+        <div class="cred-item__sub">Serving families since 2014</div>
+      </div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-item__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="cred-item__text">
+        <div class="cred-item__label">1,000+ Families</div>
+        <div class="cred-item__sub">Protected across the country</div>
+      </div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-item__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="cred-item__text">
+        <div class="cred-item__label">No Obligation</div>
+        <div class="cred-item__sub">Free consultation, no pressure</div>
+      </div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-item__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="cred-item__text">
+        <div class="cred-item__label">Family-Founded</div>
+        <div class="cred-item__sub">Built by parents, for families</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
      QUIZ CTA — moved to section 3, with report preview
 ======================================================= -->
 <section class="section section--navy quiz-cta" id="quiz-cta">
@@ -1823,10 +2307,10 @@
       <div class="quiz-cta__left">
         <p class="sect-eyebrow sect-eyebrow--light" data-sr>Free Financial Assessment</p>
         <h2 class="quiz-cta__headline" data-sr data-d="1">
-          What Is Your<br/><em>Financial<br/>Profile?</em>
+          What Is Your<br/><em>Financial</em><br/><em>Profile?</em>
         </h2>
         <p class="quiz-cta__body" data-sr data-d="2">
-          Answer 6 quick questions and receive a personalised protection report. Find out exactly where you stand, what your family needs, and your clearest next step forward.
+          Answer 6 quick questions and receive a personalized protection report. Find out exactly where you stand, what your family needs, and your clearest next step forward.
         </p>
         <button class="btn btn-gold btn-lg" onclick="openQuiz()" data-sr data-d="3">
           Start Free Assessment <span class="btn-arrow">→</span>
@@ -1837,7 +2321,7 @@
           <span class="quiz-cta__meta-item">Instant results</span>
         </div>
         <div class="quiz-cta__guide" data-sr data-d="5">
-          <img src="Screenshot%202026-04-04%20at%2000.57.54.png" alt="Earnie and Sharon Sears" class="quiz-cta__guide-photo" />
+          <img src="DSC07423-Enhanced-NR.JPG" alt="Earnie and Sharon Sears" class="quiz-cta__guide-photo" style="object-position: left center;" loading="lazy" />
           <div>
             <div class="quiz-cta__guide-name">Earnie &amp; Sharon Sears</div>
             <div class="quiz-cta__guide-role">Co-Founders, Legacy The Initiative</div>
@@ -1883,7 +2367,9 @@
         <!-- Lock overlay — prompts curiosity -->
         <div class="qrp__lock" onclick="openQuiz()">
           <div class="qrp__lock-inner">
-            <span class="lock-icon">🔓</span>
+            <span class="lock-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
             <p>Take the quiz to unlock<br/>your real report</p>
           </div>
         </div>
@@ -1909,7 +2395,7 @@
       <div class="how-step" data-sr data-d="2">
         <div class="how-step__num">02</div>
         <h3 class="how-step__title">Get Your Personal Report</h3>
-        <p class="how-step__desc">Receive your customised Legacy financial profile, with a full breakdown of what protection and planning fits your family best.</p>
+        <p class="how-step__desc">Receive your customized Legacy financial profile, with a full breakdown of what protection and planning fits your family best.</p>
       </div>
       <div class="how-step" data-sr data-d="4">
         <div class="how-step__num">03</div>
@@ -1930,7 +2416,7 @@
   <div class="wrap">
     <div class="story__grid">
       <div class="story__photo-wrap" data-sr>
-        <img src="Screenshot%202026-04-04%20at%2000.57.54.png" alt="Earnie and Sharon Sears" class="story__photo" />
+        <img src="IMG_9257.JPEG" alt="Earnie and Sharon Sears" class="story__photo" loading="lazy" />
         <div class="story__photo-frame"></div>
         <div class="story__badge">
           <div class="story__badge-num">1K+</div>
@@ -2008,7 +2494,7 @@
           </svg>
         </div>
         <h3 class="service-card__title">Financial Planning</h3>
-        <p class="service-card__desc">Build a personalised roadmap to financial freedom. We help you budget, save, and invest so your money works as hard as you do.</p>
+        <p class="service-card__desc">Build a personalized roadmap to financial freedom. We help you budget, save, and invest so your money works as hard as you do.</p>
         <button class="service-card__link" onclick="openQuiz()">Start Planning <span>→</span></button>
       </div>
       <div class="service-card">
@@ -2027,27 +2513,53 @@
   </div>
 </section>
 
+
 <!-- ======================================================
-     STATS — 3 strong stats, no "5 agents"
+     ACHIEVEMENT — $3 Million Annuity Circle
 ======================================================= -->
-<section class="section section--navy" id="stats">
+<section class="section achieve" id="achievement">
   <div class="wrap">
-    <div class="stats__grid">
-      <div class="stat-cell" data-sr>
-        <div class="stat-num"><span data-count="1000" data-suffix="K+">0K+</span></div>
-        <div class="stat-label">Families Protected</div>
+    <div class="achieve__grid">
+      <!-- TEXT — left column -->
+      <div>
+        <p class="sect-eyebrow" data-sr>Industry Recognition</p>
+        <h2 class="achieve__headline" data-sr data-d="1">
+          $3 Million<br/>
+          Annuity Circle.<br/>
+          <em>Earned Together.</em>
+        </h2>
+        <p class="achieve__body" data-sr data-d="2">
+          The $3 Million Annuity Circle is one of the most respected milestones in the financial services industry. Earnie and Sharon earned it together, the same way they have built everything at Legacy: side by side, showing up for every family, holding each other accountable, and refusing to cut corners.
+        </p>
+        <p class="achieve__body" data-sr data-d="3">
+          This is what Legacy is built on. Not promises. Proof.
+        </p>
+        <div class="achieve__stats" data-sr data-d="4" id="achieveStats">
+          <div>
+            <div class="achieve__stat-num"><span data-count="3" data-prefix="$" data-suffix="M+">$3M+</span></div>
+            <div class="achieve__stat-label">Annuity Circle</div>
+          </div>
+          <div>
+            <div class="achieve__stat-num"><span data-count="10" data-suffix="+">10+</span></div>
+            <div class="achieve__stat-label">Years Experience</div>
+          </div>
+          <div>
+            <div class="achieve__stat-num"><span data-count="1000" data-suffix="K+">1K+</span></div>
+            <div class="achieve__stat-label">Families Served</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-cell" data-sr data-d="1">
-        <div class="stat-num"><span data-count="10" data-suffix="+">0+</span></div>
-        <div class="stat-label">Years Experience</div>
+      <!-- PHOTO — right column -->
+      <div class="achieve__photo-wrap" data-sr>
+        <img src="IMG_7934.JPG" alt="Earnie Sears, $3 Million Annuity Circle" class="achieve__photo" loading="lazy" />
+        <div class="achieve__badge">
+          <img src="Screenshot 2026-04-08 at 17.16.23.png" alt="Sharon Sears" class="achieve__co-founder-avatar" loading="lazy" />
+          <div>
+            <div class="achieve__badge-num">$3M</div>
+            <div class="achieve__badge-label">Annuity Circle</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-cell" data-sr data-d="2">
-        <div class="stat-num"><span data-count="98" data-suffix="%">0%</span></div>
-        <div class="stat-label">Client Satisfaction</div>
-      </div>
-    </div>
-    <div class="stats__context" data-sr data-d="3">
-      <p>Built in a community. Trusted by families across the country. <em>Legacy is growing.</em></p>
     </div>
   </div>
 </section>
@@ -2056,7 +2568,7 @@
      TEAM STRIP
 ======================================================= -->
 <div class="team-strip">
-  <img src="Untitled%20design%20(10).png" alt="The Legacy team" class="team-strip__img" />
+  <img src="IMG_9428.JPEG" alt="The Legacy team at the $250K+ Earner awards" class="team-strip__img" loading="lazy" />
   <div class="team-strip__overlay">
     <div class="team-strip__text" data-sr>
       <p class="team-strip__eyebrow">Legacy The Initiative</p>
@@ -2075,7 +2587,7 @@
 <section class="family" id="family">
   <div class="family__grid">
     <div class="family__photo-wrap" data-sr>
-      <img src="kids.png" alt="The Sears family" class="family__photo" />
+      <img src="kids.png" alt="The Sears family" class="family__photo" loading="lazy" />
       <div class="family__photo-overlay"></div>
     </div>
     <div class="family__content">
@@ -2163,6 +2675,76 @@
 </section>
 
 <!-- ======================================================
+     FAQ — handle objections before the final CTA
+======================================================= -->
+<section class="section section--cream" id="faq">
+  <div class="wrap">
+    <h2 class="faq__headline" data-sr>
+      Common <em>Questions</em>
+    </h2>
+    <p class="faq__sub" data-sr data-d="1">
+      Everything you need to know before taking the next step.
+    </p>
+    <div class="faq__list" data-sr data-d="2">
+      <div class="faq-item">
+        <button class="faq-item__q" onclick="toggleFaq(this)">
+          How much does life insurance actually cost?
+          <span class="faq-item__icon">+</span>
+        </button>
+        <div class="faq-item__a">
+          <p>It depends on your age, health, and the type of coverage, but most families are surprised by how affordable it is. Many of our clients pay less than their monthly streaming subscriptions. We will show you real numbers on your free call so you know exactly what to expect.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q" onclick="toggleFaq(this)">
+          Am I too young or too old to start?
+          <span class="faq-item__icon">+</span>
+        </button>
+        <div class="faq-item__a">
+          <p>There is no wrong age to protect your family. The earlier you start, the lower your premiums. But even if you are starting later, we have solutions designed for every stage of life. Earnie and Sharon will find the right fit for where you are right now.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q" onclick="toggleFaq(this)">
+          What if I have pre-existing health conditions?
+          <span class="faq-item__icon">+</span>
+        </button>
+        <div class="faq-item__a">
+          <p>We work with multiple carriers and have options for a wide range of health situations. Many of our clients assumed they would be denied and were pleasantly surprised. Your consultation is free, and we will be upfront about what is available to you.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q" onclick="toggleFaq(this)">
+          Is the consultation really free? What is the catch?
+          <span class="faq-item__icon">+</span>
+        </button>
+        <div class="faq-item__a">
+          <p>There is no catch. The consultation is 100% free, with no obligation and no pressure. We believe that when families understand their options, they make the right decision on their own. Our job is to educate, not to sell.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q" onclick="toggleFaq(this)">
+          How long does it take to get covered?
+          <span class="faq-item__icon">+</span>
+        </button>
+        <div class="faq-item__a">
+          <p>Some policies can be approved and active within 24 to 48 hours. Others that require medical underwriting may take a few weeks. We will walk you through the timeline for your specific situation so there are no surprises.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q" onclick="toggleFaq(this)">
+          What makes Legacy different from other agencies?
+          <span class="faq-item__icon">+</span>
+        </button>
+        <div class="faq-item__a">
+          <p>Legacy was founded by a family, for families. Earnie and Sharon built this company on personal relationships, not call centers. Every client gets direct access to a licensed agent who knows their name and their story. That is the Legacy difference.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
      BOOK A CALL — dedicated focused section (no content competing)
 ======================================================= -->
 <section class="book-section" id="book">
@@ -2178,7 +2760,7 @@
       <!-- Headline -->
       <h2 class="book-section__headline" data-sr data-d="1">
         Your Family Deserves<br/>
-        a Plan. <em>Let's Build<br/>One Together.</em>
+        a Plan. <em>Let's Build</em><br/><em>One Together.</em>
       </h2>
 
       <!-- Copy -->
@@ -2192,14 +2774,22 @@
         Spots available this week
       </div>
 
-      <!-- Primary CTA -->
-      <div class="book-cta-wrap" data-sr data-d="4">
-        <a href="https://calendly.com/adiorahonuora/new-meeting" target="_blank" class="btn-book">
-          Book Your Free Call with Legacy
-          <span class="btn-arrow">→</span>
+      <!-- Agent booking cards -->
+      <div class="book-agents" data-sr data-d="4">
+        <a href="https://calendly.com/e-searsphp/60mins" target="_blank" class="book-agent-card">
+          <img src="IMG_7934.JPG" alt="Earnie Sears" class="book-agent__photo" style="object-position: center top;" loading="lazy" />
+          <div class="book-agent__name">Earnie Sears</div>
+          <div class="book-agent__role">Co-Founder, Legacy</div>
+          <span class="book-agent__btn">Book with Earnie <span>→</span></span>
         </a>
-        <p class="book-cta-note">Free. No commitment. No sales pitch.</p>
+        <a href="https://calendly.com/ssearsphp/field-training" target="_blank" class="book-agent-card">
+          <img src="Screenshot 2026-04-08 at 17.16.23.png" alt="Sharon Sears" class="book-agent__photo" style="object-position: center 15%;" loading="lazy" />
+          <div class="book-agent__name">Sharon Sears</div>
+          <div class="book-agent__role">Co-Founder, Legacy</div>
+          <span class="book-agent__btn">Book with Sharon <span>→</span></span>
+        </a>
       </div>
+      <p class="book-cta-note" data-sr data-d="4" style="margin-bottom:1.5rem;">Free. No commitment. No sales pitch.</p>
 
       <!-- Guarantees -->
       <div class="book-section__guarantees" data-sr data-d="5">
@@ -2235,7 +2825,7 @@
 
       <!-- Founders -->
       <div class="book-section__founders" data-sr data-d="8">
-        <img src="Screenshot%202026-04-04%20at%2000.57.54.png" alt="Earnie and Sharon Sears" class="book-section__founders-photo" />
+        <img src="IMG_9257.JPEG" alt="Earnie and Sharon Sears" class="book-section__founders-photo" style="object-position: center top;" loading="lazy" />
         <div class="book-section__founders-info">
           <div class="book-section__founders-names">Earnie &amp; Sharon Sears</div>
           <div class="book-section__founders-role">Founders, Legacy The Initiative</div>
@@ -2261,9 +2851,6 @@
         <a href="https://instagram.com/iamlegacyinitiative" target="_blank" class="footer__social-btn" aria-label="Instagram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
-        <a href="#" class="footer__social-btn" aria-label="Facebook">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
       </div>
     </div>
     <div>
@@ -2287,7 +2874,7 @@
     </div>
   </div>
   <div class="footer__bottom">
-    <p class="footer__copy">© 2025 Legacy The Initiative. All rights reserved.</p>
+    <p class="footer__copy">© 2026 Legacy The Initiative. All rights reserved.</p>
     <div class="footer__legal">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms of Service</a>
@@ -2300,7 +2887,9 @@
 ======================================================= -->
 <div class="sticky-bar" id="stickyBar">
   <div class="sticky-bar__text">
-    <span class="sticky-bar__icon">📋</span>
+    <span class="sticky-bar__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </span>
     <div>
       <div class="sticky-bar__headline">Discover your financial profile for free</div>
       <div class="sticky-bar__sub">Takes 2 minutes. Instant results.</div>
@@ -2316,7 +2905,9 @@
 <div class="exit-overlay" id="exitOverlay">
   <div class="exit-modal">
     <button class="exit-modal__close" onclick="closeExit()">✕</button>
-    <div class="exit-modal__icon">🏛️</div>
+    <div class="exit-modal__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
     <h2 class="exit-modal__headline">Before you go</h2>
     <p class="exit-modal__body">
       Take our free 2-minute quiz and find out exactly what type of financial protection your family needs. No email required to start.
@@ -2348,7 +2939,7 @@
         <img src="Untitled%20design%20(9).png" alt="Legacy" class="qz-intro__logo" />
         <p class="qz-intro__eyebrow">Legacy Financial Assessment</p>
         <h2 class="qz-intro__headline">What Is Your<br/><em>Financial Profile?</em></h2>
-        <p class="qz-intro__body">Answer 6 quick questions to discover which of the 4 Legacy profiles matches you. Then receive your personalised protection report from Earnie and Sharon.</p>
+        <p class="qz-intro__body">Answer 6 quick questions to discover which of the 4 Legacy profiles matches you. Then receive your personalized protection report from Earnie and Sharon.</p>
         <div class="qz-intro__profiles">
           <div class="qz-intro__profile">
             <img src="profile-protector.jpg" class="qz-intro__profile-img" alt="The Protector" />
@@ -2506,7 +3097,7 @@
     <!-- GENERATING -->
     <div class="qz-screen" id="qz-generating">
       <div class="gen-screen">
-        <h2>Analysing your assessment&hellip;</h2>
+        <h2>Analyzing your assessment&hellip;</h2>
         <div class="gen-bar"><div class="gen-fill" id="genBar"></div></div>
         <div class="gen-lines">
           <div class="gen-line" id="gl1"><div class="gen-dot"></div>Reviewing your protection priorities</div>
@@ -2531,7 +3122,7 @@
         <!-- Email gate — shown immediately after profile reveal -->
         <div class="email-card" id="emailCard">
           <h3>Unlock your complete Legacy Report</h3>
-          <p>Enter your details and we will send your full personalised financial protection report and connect you with Earnie or Sharon.</p>
+          <p>Enter your details and we will send your full personalized financial protection report and connect you with Earnie or Sharon.</p>
           <div class="form-row">
             <input type="text" class="finput" id="uName" placeholder="First name" />
             <input type="email" class="finput" id="uEmail" placeholder="Email address" />
@@ -2552,9 +3143,18 @@
           <p class="book-card__eyebrow">Your Next Step</p>
           <h3>Ready to build your Legacy?<br/>Let's talk.</h3>
           <p>Book your free 30-minute consultation with Earnie or Sharon Sears. No pressure, no jargon. Just a real conversation about protecting your family and building your future.</p>
-          <button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="window.open('https://calendly.com/adiorahonuora/new-meeting','_blank');closeQuiz();">
-            Book a Free Call with Legacy →
-          </button>
+          <div class="book-agents" style="max-width:100%;margin-bottom:1rem;">
+            <a href="https://calendly.com/e-searsphp/60mins" target="_blank" class="book-agent-card" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);">
+              <img src="IMG_7934.JPG" alt="Earnie Sears" class="book-agent__photo" style="object-position:center top;width:60px;height:60px;" loading="lazy" />
+              <div class="book-agent__name">Earnie Sears</div>
+              <span class="book-agent__btn">Book with Earnie <span>→</span></span>
+            </a>
+            <a href="https://calendly.com/ssearsphp/field-training" target="_blank" class="book-agent-card" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);">
+              <img src="Screenshot 2026-04-08 at 17.16.23.png" alt="Sharon Sears" class="book-agent__photo" style="object-position:center 15%;width:60px;height:60px;" loading="lazy" />
+              <div class="book-agent__name">Sharon Sears</div>
+              <span class="book-agent__btn">Book with Sharon <span>→</span></span>
+            </a>
+          </div>
           <p class="book-card__note">Free consultation. No commitment. No obligation.</p>
         </div>
       </div>
@@ -2793,6 +3393,21 @@ function closeMobileNav() { ham.classList.remove('open'); mob.classList.remove('
 mob.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
 
 // ============================================================
+// HEADLINE LINE REVEAL
+// Splits each h2[data-sr] on <br> and wraps each line in an
+// overflow:hidden container so the text slides up individually.
+// ============================================================
+(function wrapHeadlines() {
+  document.querySelectorAll('h2[data-sr]').forEach(h2 => {
+    const baseDelay = parseFloat(h2.dataset.d || 0) * 0.1;
+    const parts = h2.innerHTML.split(/<br\s*\/?>/i);
+    h2.innerHTML = parts.map((part, i) =>
+      `<span class="hl-line"><span class="hl-inner" style="transition-delay:${(baseDelay + i * 0.1).toFixed(2)}s">${part.trim()}</span></span>`
+    ).join('');
+  });
+})();
+
+// ============================================================
 // SCROLL REVEAL
 // ============================================================
 const srObs = new IntersectionObserver((entries) => {
@@ -2811,15 +3426,16 @@ const countObs = new IntersectionObserver((entries) => {
     e.target.querySelectorAll('[data-count]').forEach(el => {
       const target = +el.dataset.count;
       const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
       const isK = target >= 1000;
       const dur = 1600;
       const start = performance.now();
       (function tick(now) {
         const prog = Math.min((now - start) / dur, 1);
         const v = Math.floor((1 - Math.pow(1 - prog, 3)) * target);
-        el.textContent = isK ? (v >= 1000 ? Math.floor(v / 1000) + 'K' : v) + suffix : v + suffix;
+        el.textContent = prefix + (isK ? (v >= 1000 ? Math.floor(v / 1000) + 'K' : v) + suffix : v + suffix);
         if (prog < 1) requestAnimationFrame(tick);
-        else el.textContent = isK ? Math.floor(target / 1000) + 'K' + suffix : target + suffix;
+        else el.textContent = prefix + (isK ? Math.floor(target / 1000) + 'K' + suffix : target + suffix);
       })(start);
     });
     countObs.unobserve(e.target);
@@ -2827,6 +3443,10 @@ const countObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 const statsSection = document.getElementById('stats');
 if (statsSection) countObs.observe(statsSection);
+const heroTrust = document.getElementById('heroTrust');
+if (heroTrust) countObs.observe(heroTrust);
+const achieveStats = document.getElementById('achieveStats');
+if (achieveStats) countObs.observe(achieveStats);
 
 // ============================================================
 // STICKY BAR
@@ -2838,21 +3458,39 @@ document.getElementById('stickyClose').addEventListener('click', () => {
 });
 
 // ============================================================
-// EXIT INTENT — triggers after 30 seconds on page
+// EXIT INTENT — real mouseout on desktop, timer on mobile
 // ============================================================
 let exitShown = false;
-setTimeout(() => {
-  if (!exitShown && !document.getElementById('quizOverlay').classList.contains('open')) {
-    exitShown = true;
-    document.getElementById('exitOverlay').classList.add('show');
-  }
-}, 30000);
+function showExitIntent() {
+  if (exitShown || document.getElementById('quizOverlay').classList.contains('open')) return;
+  exitShown = true;
+  document.getElementById('exitOverlay').classList.add('show');
+}
+// Desktop: detect mouse leaving viewport toward top
+document.addEventListener('mouseout', (e) => {
+  if (e.clientY <= 0 && !exitShown) showExitIntent();
+});
+// Mobile fallback: show after 45 seconds of inactivity
+if ('ontouchstart' in window) {
+  setTimeout(showExitIntent, 45000);
+}
 function closeExit() {
   document.getElementById('exitOverlay').classList.remove('show');
 }
 document.getElementById('exitOverlay').addEventListener('click', (e) => {
   if (e.target === document.getElementById('exitOverlay')) closeExit();
 });
+
+// ============================================================
+// FAQ ACCORDION
+// ============================================================
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
 </script>
 
 </body>

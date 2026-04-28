@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Legacy The Initiative | Life Insurance, Financial Planning &amp; Legacy Building</title>
-  <meta name="description" content="Earnie and Sharon Sears built Legacy on one belief: every family deserves real protection and a plan that outlasts them. Life insurance, financial planning, and legacy building designed around the people you love most." />
+  <title>Legacy The Initiative | Retirement Annuities, Life Insurance &amp; Legacy Building</title>
+  <meta name="description" content="Earnie and Sharon Sears built Legacy on one belief: every family deserves real protection and a plan that outlasts them. Life insurance, retirement annuities, and legacy building designed around the people you love most." />
   <meta property="og:title" content="Legacy The Initiative | We've Got You Covered" />
-  <meta property="og:description" content="Life insurance, financial planning, and legacy building designed around your family. Take our free 2-minute quiz to discover your financial profile." />
+  <meta property="og:description" content="Life insurance, retirement annuities, and legacy building designed around your family. Take our free 2-minute quiz to discover your financial profile." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="Untitled%20design%20(9).png" />
+  <meta property="og:image" content="transparent%20background.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="Untitled%20design%20(9).png" type="image/png" />
+  <link rel="icon" href="transparent%20background.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -113,26 +113,88 @@
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 68px;
+      height: 80px;
       z-index: 500;
-      transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease);
+      display: flex;
+      justify-content: center;
+      transition: background 0.4s var(--ease), backdrop-filter 0.4s var(--ease), box-shadow 0.4s var(--ease);
     }
     .nav.scrolled {
       background: rgba(250,249,246,0.96);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 1px 0 var(--border);
     }
     .nav__inner {
+      width: 100%;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 0 1rem;
       padding: 0 2rem;
-      height: 100%;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 0;
+      overflow: visible;
+      transition: max-width 0.4s var(--ease),
+                  margin-top 0.4s var(--ease),
+                  background 0.4s var(--ease),
+                  backdrop-filter 0.4s var(--ease),
+                  border-color 0.4s var(--ease),
+                  border-radius 0.4s var(--ease),
+                  box-shadow 0.4s var(--ease),
+                  padding 0.4s var(--ease);
     }
-    .nav__brand { display: flex; align-items: center; gap: 0.6rem; }
-    .nav__logo { width: 38px; height: 38px; object-fit: contain; }
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex: 1;
+      max-width: 200px;
+    }
+    .nav__logo {
+      width: 152px;
+      height: 152px;
+      object-fit: contain;
+      display: block;
+    }
+    @media (min-width: 769px) {
+      .nav.scrolled {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+      }
+      .nav.scrolled .nav__inner {
+        max-width: 1080px;
+        margin-top: 0.5rem;
+        background: rgba(250,249,246,0.88);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-color: var(--border);
+        border-radius: 999px;
+        box-shadow: 0 8px 24px rgba(14,27,56,0.08);
+        padding: 0 1.5rem;
+      }
+    }
+    @media (max-width: 768px) {
+      .nav { height: 64px; }
+      .nav__inner { height: 64px; }
+      .nav__logo { width: 110px; height: 110px; }
+      .nav__brand { max-width: none; }
+      .nav__mobile { top: 64px; }
+      .hero { padding-top: 110px; }
+    }
+    @media (max-width: 480px) {
+      .nav { height: 56px; }
+      .nav__inner { height: 56px; }
+      .nav__logo { width: 88px; height: 88px; }
+      .nav__mobile { top: 56px; }
+      .hero { padding-top: 92px; }
+    }
     .nav__name {
       font-family: var(--sans);
       font-weight: 700;
@@ -160,7 +222,7 @@
     .nav__mobile {
       display: none;
       position: fixed;
-      top: 68px; left: 0; right: 0;
+      top: 80px; left: 0; right: 0;
       background: var(--cream);
       border-bottom: 1px solid var(--border);
       padding: 1.5rem 2rem 2rem;
@@ -188,7 +250,7 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding-top: 68px;
+      padding-top: 140px;
       position: relative;
       overflow: hidden;
     }
@@ -298,8 +360,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 70%;
-      max-width: 480px;
+      width: 95%;
+      max-width: 720px;
       height: auto;
       object-fit: contain;
       z-index: 2;
@@ -385,6 +447,71 @@
     }
     .mq-item b { color: rgba(255,255,255,0.85); }
     .mq-dot { width: 4px; height: 4px; background: var(--red); border-radius: 50%; flex-shrink: 0; }
+
+    /* =====================================================
+       CARRIERS STRIP
+    ===================================================== */
+    .carriers {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding-block: 3.25rem;
+      overflow: hidden;
+    }
+    .carriers__eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin: 0 0 2rem;
+    }
+    .carriers-track {
+      display: flex;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    @keyframes carriers-mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .carriers-list {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      animation: carriers-mq 50s linear infinite;
+      white-space: nowrap;
+    }
+    .carriers-track:hover .carriers-list { animation-play-state: paused; }
+    .carriers-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-inline: 2.75rem;
+      flex-shrink: 0;
+    }
+    .carriers-item img {
+      height: 64px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .carriers-item:hover img {
+      transform: scale(1.05);
+    }
+    @media (max-width: 768px) {
+      .carriers { padding-block: 2.25rem; }
+      .carriers__eyebrow { margin-bottom: 1.25rem; font-size: 0.65rem; }
+      .carriers-item { padding-inline: 1.75rem; }
+      .carriers-item img { height: 48px; max-width: 160px; }
+    }
+    @media (max-width: 480px) {
+      .carriers-item { padding-inline: 1.25rem; }
+      .carriers-item img { height: 38px; max-width: 130px; }
+    }
 
     /* =====================================================
        SECTION SHARED
@@ -999,6 +1126,57 @@
     .team-strip__sub {
       font-size: 0;
       margin-top: 0;
+    }
+    .team-strip__cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 48px;
+      padding: 0 56px 0 24px;
+      margin-top: 2rem;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      text-decoration: none;
+      overflow: hidden;
+      width: fit-content;
+      box-shadow: 0 12px 32px rgba(200,16,46,0.35);
+      cursor: pointer;
+      transition: padding 0.5s var(--ease), background 0.5s var(--ease), box-shadow 0.5s var(--ease);
+    }
+    .team-strip__cta:hover {
+      padding: 0 24px 0 56px;
+    }
+    .team-strip__cta-text {
+      position: relative;
+      z-index: 1;
+      transition: transform 0.5s var(--ease);
+    }
+    .team-strip__cta-icon {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      width: 40px;
+      height: 40px;
+      background: var(--cream);
+      color: var(--navy);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: right 0.5s var(--ease), transform 0.5s var(--ease);
+    }
+    .team-strip__cta:hover .team-strip__cta-icon {
+      right: calc(100% - 44px);
+      transform: rotate(45deg);
+    }
+    @media (max-width: 480px) {
+      .team-strip__cta { margin-top: 1.5rem; }
     }
 
     /* =====================================================
@@ -2071,7 +2249,7 @@
       .nav__links, .nav__actions { display: none; }
       .nav__ham { display: flex; }
       .hero__right { height: 80vw; min-height: 320px; max-height: 480px; }
-      .hero__photo { width: 60%; }
+      .hero__photo { width: 85%; }
       .hero__left { padding: 2.5rem 1.5rem 3rem; }
       .services__grid { grid-template-columns: 1fr; }
       .stats__grid { grid-template-columns: 1fr 1fr; }
@@ -2152,8 +2330,7 @@
 <nav class="nav" id="mainNav">
   <div class="nav__inner">
     <div class="nav__brand">
-      <img src="Untitled%20design%20(9).png" alt="Legacy" class="nav__logo" />
-      <span class="nav__name">Legacy</span>
+      <img src="transparent%20background%20new.png" alt="Legacy" class="nav__logo" />
     </div>
     <ul class="nav__links">
       <li><a href="#story" class="nav__link">About</a></li>
@@ -2192,7 +2369,7 @@
       <em>For Yours.</em>
     </h1>
     <p class="hero__sub">
-      Earnie and Sharon Sears built Legacy on one belief: every family deserves real protection and a plan that outlasts them. Life insurance, financial planning, and legacy building, designed around the people you love most.
+      Earnie and Sharon Sears built Legacy on one belief: every family deserves real protection and a plan that outlasts them. Life insurance, retirement annuities, and legacy building, designed around the people you love most.
     </p>
     <div class="hero__actions">
       <button class="btn btn-red btn-lg" onclick="openQuiz()">
@@ -2217,7 +2394,7 @@
   </div>
   <div class="hero__right">
     <div class="hero__red-line"></div>
-    <img src="Untitled%20design%20(9).png" alt="Legacy The Initiative logo" class="hero__photo" fetchpriority="high" />
+    <img src="transparent%20background.png" alt="Legacy The Initiative logo" class="hero__photo" fetchpriority="high" />
   </div>
 </section>
 
@@ -2225,22 +2402,22 @@
 <div class="trust-strip">
   <div class="marquee-track">
     <ul class="marquee-list">
-      <li class="mq-item"><b>Life Insurance</b><span class="mq-dot"></span></li>
-      <li class="mq-item">Financial Planning<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Retirement Annuities</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Life Insurance<span class="mq-dot"></span></li>
       <li class="mq-item"><b>Legacy Building</b><span class="mq-dot"></span></li>
       <li class="mq-item">Wealth Protection<span class="mq-dot"></span></li>
       <li class="mq-item"><b>Final Expense</b><span class="mq-dot"></span></li>
       <li class="mq-item">Indexed Universal Life<span class="mq-dot"></span></li>
       <li class="mq-item"><b>Annuities</b><span class="mq-dot"></span></li>
-      <li class="mq-item">Family First<span class="mq-dot"></span></li>
-      <li class="mq-item"><b>Life Insurance</b><span class="mq-dot"></span></li>
-      <li class="mq-item">Financial Planning<span class="mq-dot"></span></li>
+      <li class="mq-item">Retirement Income<span class="mq-dot"></span></li>
+      <li class="mq-item"><b>Retirement Annuities</b><span class="mq-dot"></span></li>
+      <li class="mq-item">Life Insurance<span class="mq-dot"></span></li>
       <li class="mq-item"><b>Legacy Building</b><span class="mq-dot"></span></li>
       <li class="mq-item">Wealth Protection<span class="mq-dot"></span></li>
       <li class="mq-item"><b>Final Expense</b><span class="mq-dot"></span></li>
       <li class="mq-item">Indexed Universal Life<span class="mq-dot"></span></li>
       <li class="mq-item"><b>Annuities</b><span class="mq-dot"></span></li>
-      <li class="mq-item">Family First<span class="mq-dot"></span></li>
+      <li class="mq-item">Retirement Income<span class="mq-dot"></span></li>
     </ul>
   </div>
 </div>
@@ -2332,7 +2509,7 @@
       <div data-sr data-d="2" style="position:relative;">
         <div class="quiz-report-preview">
           <div class="qrp__header">
-            <img src="Untitled%20design%20(9).png" alt="Legacy" />
+            <img src="transparent%20background.png" alt="Legacy" />
             <span class="qrp__header-text">Legacy Financial Report</span>
           </div>
           <div class="qrp__profile-banner">
@@ -2416,7 +2593,7 @@
   <div class="wrap">
     <div class="story__grid">
       <div class="story__photo-wrap" data-sr>
-        <img src="IMG_9257.JPEG" alt="Earnie and Sharon Sears" class="story__photo" loading="lazy" />
+        <img src="parents.jpg" alt="Earnie and Sharon Sears" class="story__photo" loading="lazy" />
         <div class="story__photo-frame"></div>
         <div class="story__badge">
           <div class="story__badge-num">10K+</div>
@@ -2475,6 +2652,19 @@
       <div class="service-card">
         <div class="service-card__num">01</div>
         <div class="service-card__icon">
+          <!-- Chart SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="2" y1="20" x2="22" y2="20"/>
+          </svg>
+        </div>
+        <h3 class="service-card__title">Retirement Annuities</h3>
+        <p class="service-card__desc">Turn your retirement savings into guaranteed income you cannot outlive. We design annuity strategies that protect your principal, grow tax deferred, and pay you for life.</p>
+        <button class="service-card__link" onclick="openQuiz()">Start Planning <span>→</span></button>
+      </div>
+      <div class="service-card">
+        <div class="service-card__num">02</div>
+        <div class="service-card__icon">
           <!-- Shield SVG -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -2483,19 +2673,6 @@
         <h3 class="service-card__title">Life Insurance</h3>
         <p class="service-card__desc">Term, whole, and indexed universal life solutions built around your family's exact needs. Protect the people you love with coverage that lasts.</p>
         <button class="service-card__link" onclick="openQuiz()">Find My Coverage <span>→</span></button>
-      </div>
-      <div class="service-card">
-        <div class="service-card__num">02</div>
-        <div class="service-card__icon">
-          <!-- Chart SVG -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-            <line x1="2" y1="20" x2="22" y2="20"/>
-          </svg>
-        </div>
-        <h3 class="service-card__title">Financial Planning</h3>
-        <p class="service-card__desc">Build a personalized roadmap to financial freedom. We help you budget, save, and invest so your money works as hard as you do.</p>
-        <button class="service-card__link" onclick="openQuiz()">Start Planning <span>→</span></button>
       </div>
       <div class="service-card">
         <div class="service-card__num">03</div>
@@ -2510,6 +2687,43 @@
         <button class="service-card__link" onclick="openQuiz()">Build My Legacy <span>→</span></button>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     CARRIERS WE REPRESENT
+======================================================= -->
+<section class="carriers" aria-label="Insurance carriers we represent">
+  <div class="wrap">
+    <p class="carriers__eyebrow">Top Carriers We Represent</p>
+  </div>
+  <div class="carriers-track">
+    <ul class="carriers-list">
+      <li class="carriers-item"><img src="carriers/nationwide.png" alt="Nationwide" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/pacific-life.png" alt="Pacific Life" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/national-life-group.png" alt="National Life Group" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/american-national.png" alt="American National" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/foresters-financial.png" alt="Foresters Financial" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/north-american.png" alt="North American" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/silac.png" alt="SILAC" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/fg-annuities-life.png" alt="F&amp;G Annuities &amp; Life" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/john-hancock.png" alt="John Hancock" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/lincoln-financial.png" alt="Lincoln Financial Group" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/mutual-of-omaha.png" alt="Mutual of Omaha" loading="lazy" /></li>
+      <li class="carriers-item"><img src="carriers/aig.png" alt="AIG" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/nationwide.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/pacific-life.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/national-life-group.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/american-national.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/foresters-financial.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/north-american.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/silac.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/fg-annuities-life.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/john-hancock.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/lincoln-financial.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/mutual-of-omaha.png" alt="" loading="lazy" /></li>
+      <li class="carriers-item" aria-hidden="true"><img src="carriers/aig.png" alt="" loading="lazy" /></li>
+    </ul>
   </div>
 </section>
 
@@ -2577,6 +2791,12 @@
         <em>Winningest</em><br/>
         Team
       </div>
+      <a href="https://calendly.com/e-searsphp/60mins" target="_blank" rel="noopener" class="team-strip__cta">
+        <span class="team-strip__cta-text">Join The Team</span>
+        <span class="team-strip__cta-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </a>
     </div>
   </div>
 </div>
@@ -2843,7 +3063,7 @@
   <div class="footer__inner">
     <div>
       <div class="footer__brand-row">
-        <img src="Untitled%20design%20(9).png" alt="Legacy" class="footer__logo" />
+        <img src="transparent%20background.png" alt="Legacy" class="footer__logo" />
         <span class="footer__brand-name">Legacy The Initiative</span>
       </div>
       <p class="footer__tagline">We've Got You Covered. Protecting families, building legacies, and securing futures one family at a time.</p>
@@ -2856,8 +3076,8 @@
     <div>
       <p class="footer__col-label">Services</p>
       <ul class="footer__links">
+        <li><a href="#services">Retirement Annuities</a></li>
         <li><a href="#services">Life Insurance</a></li>
-        <li><a href="#services">Financial Planning</a></li>
         <li><a href="#services">Legacy Building</a></li>
         <li><a href="#services">Wealth Protection</a></li>
         <li><a href="#services">Final Expense</a></li>
@@ -2925,7 +3145,7 @@
 <div class="quiz-overlay" id="quizOverlay">
   <div class="quiz-overlay__nav">
     <div class="quiz-overlay__brand">
-      <img src="Untitled%20design%20(9).png" alt="Legacy" />
+      <img src="transparent%20background.png" alt="Legacy" />
       <span>Legacy Financial Assessment</span>
     </div>
     <button class="quiz-overlay__close" onclick="closeQuiz()">← Back to site</button>
@@ -2936,7 +3156,7 @@
     <!-- INTRO — upgraded with profile teasers -->
     <div class="qz-screen active" id="qz-intro">
       <div class="qz-intro">
-        <img src="Untitled%20design%20(9).png" alt="Legacy" class="qz-intro__logo" />
+        <img src="transparent%20background.png" alt="Legacy" class="qz-intro__logo" />
         <p class="qz-intro__eyebrow">Legacy Financial Assessment</p>
         <h2 class="qz-intro__headline">What Is Your<br/><em>Financial Profile?</em></h2>
         <p class="qz-intro__body">Answer 6 quick questions to discover which of the 4 Legacy profiles matches you. Then receive your personalized protection report from Earnie and Sharon.</p>
@@ -3139,7 +3359,7 @@
 
         <!-- Book a call — revealed after email submit -->
         <div class="book-card" id="bookCard">
-          <img src="Untitled%20design%20(9).png" alt="Legacy" class="book-card__logo" />
+          <img src="transparent%20background.png" alt="Legacy" class="book-card__logo" />
           <p class="book-card__eyebrow">Your Next Step</p>
           <h3>Ready to build your Legacy?<br/>Let's talk.</h3>
           <p>Book your free 30-minute consultation with Earnie or Sharon Sears. No pressure, no jargon. Just a real conversation about protecting your family and building your future.</p>
